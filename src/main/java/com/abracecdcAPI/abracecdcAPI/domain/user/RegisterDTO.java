@@ -1,6 +1,7 @@
 package com.abracecdcAPI.abracecdcAPI.domain.user;
 
-import jakarta.persistence.Column;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record RegisterDTO(String name, String email, String password, String phone, UserRole role) {
+public record RegisterDTO(@NotBlank String name, @NotBlank String email, @NotBlank String password, @NotBlank String phone, UserRole role) {
 }
