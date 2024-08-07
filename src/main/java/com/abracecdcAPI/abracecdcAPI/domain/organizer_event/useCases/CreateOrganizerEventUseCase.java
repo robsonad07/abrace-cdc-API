@@ -13,6 +13,6 @@ public class CreateOrganizerEventUseCase {
   private OrganizerEventRepository organizerEventRepository;
 
   public OrganizerEventEntity execute(OrganizerEventEntity organizerEventEntity) {
-    return organizerEventRepository.save(organizerEventEntity);
+    return this.organizerEventRepository.save(organizerEventEntity);
   }
 }

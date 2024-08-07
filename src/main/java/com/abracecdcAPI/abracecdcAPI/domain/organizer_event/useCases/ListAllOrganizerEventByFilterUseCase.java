@@ -15,7 +15,7 @@ public class ListAllOrganizerEventByFilterUseCase {
   private OrganizerEventRepository organizerEventRepository;
 
   public List<OrganizerEventEntity> execute(String name) {
-    var organizerEvents = organizerEventRepository.findByName(name);
+    var organizerEvents = this.organizerEventRepository.findByName(name);
 
     return organizerEvents;
   }
