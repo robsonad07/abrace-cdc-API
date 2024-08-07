@@ -34,7 +34,7 @@ public class OrganizerEventController {
       }  
     }
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Object> getOrganizerEventByName(@RequestParam String filter) {
       try {
         var result = listAllOrganizerEventByFilterUseCase.execute(filter);

@@ -12,8 +12,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "organizers")
-@Table(name = "organizers")
+@Entity(name = "organizers_events")
+@Table(name = "organizers_events")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
