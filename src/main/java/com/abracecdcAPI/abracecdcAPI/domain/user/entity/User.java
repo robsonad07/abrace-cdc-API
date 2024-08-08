@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.user;
+package com.abracecdcAPI.abracecdcAPI.domain.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

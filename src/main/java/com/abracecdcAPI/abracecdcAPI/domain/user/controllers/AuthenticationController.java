@@ -1,25 +1,25 @@
-package com.abracecdcAPI.abracecdcAPI.controllers;
+package com.abracecdcAPI.abracecdcAPI.domain.user.controllers;
 
-import ch.qos.logback.core.joran.util.beans.BeanUtil;
-import com.abracecdcAPI.abracecdcAPI.domain.user.*;
+import com.abracecdcAPI.abracecdcAPI.domain.user.dto.AuthenticationDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.user.dto.LoginResponseDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.user.dto.RegisterDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
+import com.abracecdcAPI.abracecdcAPI.domain.user.entity.UserRole;
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.LoginUserUseCase;
 import com.abracecdcAPI.abracecdcAPI.infra.security.TokenService;
-import com.abracecdcAPI.abracecdcAPI.repositories.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import jakarta.validation.Valid;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 @RestController
 public class AuthenticationController {
+    @Autowired
+    LoginUserUseCase loginUserUseCase;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -28,17 +28,14 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping("/auth/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
-        var usernamePassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
-        var auth = this.authenticationManager.authenticate(usernamePassword);
-
-        var token = tokenService.generateToken((User) auth.getPrincipal());
+    public ResponseEntity<Object> login(@RequestBody @Valid AuthenticationDTO data){
+        var token = loginUserUseCase.execute(new UsernamePasswordAuthenticationToken(data.email(), data.password()));
 
         return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/auth/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+    public ResponseEntity<Object> register(@RequestBody @Valid RegisterDTO data){
         if(this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
@@ -49,7 +46,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/auth/register-user")
-    public ResponseEntity registerUser(@RequestBody @Valid RegisterDTO data){
+    public ResponseEntity<Object> registerUser(@RequestBody @Valid RegisterDTO data){
         if(this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());

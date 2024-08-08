@@ -1,6 +1,6 @@
-package com.abracecdcAPI.abracecdcAPI.repositories;
+package com.abracecdcAPI.abracecdcAPI.domain.user.repository;
 
-import com.abracecdcAPI.abracecdcAPI.domain.user.User;
+import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;

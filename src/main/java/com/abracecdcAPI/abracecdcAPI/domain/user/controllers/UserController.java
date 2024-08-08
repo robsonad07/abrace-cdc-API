@@ -1,8 +1,8 @@
-package com.abracecdcAPI.abracecdcAPI.controllers;
+package com.abracecdcAPI.abracecdcAPI.domain.user.controllers;
 
-import com.abracecdcAPI.abracecdcAPI.domain.user.User;
-import com.abracecdcAPI.abracecdcAPI.domain.user.UserRecordDTO;
-import com.abracecdcAPI.abracecdcAPI.repositories.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
+import com.abracecdcAPI.abracecdcAPI.domain.user.dto.UserRecordDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
