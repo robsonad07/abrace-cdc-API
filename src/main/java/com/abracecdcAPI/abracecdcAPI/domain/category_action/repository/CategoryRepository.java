@@ -12,7 +12,9 @@ import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntit
 public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> {
     List<CategoryEntity> findByName(String name);
 
+    @Override
     public CategoryEntity save(CategoryEntity CategoryEntity);
 
+    @Override
     public void delete(CategoryEntity existingCategoryEvent);
 }
