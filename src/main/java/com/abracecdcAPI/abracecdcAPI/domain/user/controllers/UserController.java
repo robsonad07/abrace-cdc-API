@@ -5,11 +5,11 @@ import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.dto.UserRecordDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.ListAllUsersUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.UpdateAdminUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,6 +24,8 @@ public class UserController {
     private ListAllUsersUseCase listAllUsersUseCase;
     @Autowired
     private FindUserUseCase findUserUseCase;
+    @Autowired
+    private UpdateAdminUseCase updateAdminUseCase;
 
     @GetMapping("/users")
     public ResponseEntity<Object> getAllUsers(){
@@ -47,13 +49,12 @@ public class UserController {
 
     @PutMapping("/user/{id}")
     public ResponseEntity<Object> updateUser(@PathVariable(value = "id") UUID id, @RequestBody @Valid UserRecordDTO userRecordDTO){
-        Optional<User> user = repository.findById(id);
-        if(user.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
+        try {
+            User modelUser = updateAdminUseCase.execute(id, userRecordDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(repository.save(modelUser));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        String encryptedPassword = new BCryptPasswordEncoder().encode(userRecordDTO.password());
-        User modelUser = new User(id ,userRecordDTO.name(), userRecordDTO.email(), encryptedPassword, userRecordDTO.phone(), userRecordDTO.role());
-        return ResponseEntity.status(HttpStatus.OK).body(repository.save(modelUser));
     }
 
     @DeleteMapping("/user/{id}")
