@@ -7,12 +7,9 @@ import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.LoginUserUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.RegisterAdminUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.RegisterUserUseCase;
-import com.abracecdcAPI.abracecdcAPI.infra.security.TokenService;
-import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
