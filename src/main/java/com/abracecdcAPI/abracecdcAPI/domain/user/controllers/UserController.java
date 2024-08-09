@@ -3,6 +3,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.user.controllers;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.dto.UserRecordDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.ListAllUsersUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,10 +19,13 @@ import java.util.UUID;
 public class UserController {
     @Autowired
     private UserRepository repository;
+    @Autowired
+    private ListAllUsersUseCase listAllUsersUseCase;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers(){
-        return ResponseEntity.status(HttpStatus.OK).body(repository.findAll());
+        List<User> users = listAllUsersUseCase.execute();
+        return ResponseEntity.status(HttpStatus.OK).body(users);
     }
 
     @GetMapping("/user/{id}")
