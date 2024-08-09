@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.organizer_event.entity;
+package com.abracecdcAPI.abracecdcAPI.domain.organizer.entity;
 
 import java.util.UUID;
 
@@ -12,12 +12,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "organizers_events")
-@Table(name = "organizers_events")
+@Entity(name = "organizers")
+@Table(name = "organizers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrganizerEventEntity {
+public class OrganizerEntity {
   
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
