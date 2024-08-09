@@ -1,6 +1,6 @@
-package com.abracecdcAPI.abracecdcAPI.service;
+package com.abracecdcAPI.abracecdcAPI.domain.user.service;
 
-import com.abracecdcAPI.abracecdcAPI.repositories.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

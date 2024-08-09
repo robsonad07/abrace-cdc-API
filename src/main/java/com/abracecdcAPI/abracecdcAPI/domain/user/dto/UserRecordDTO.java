@@ -1,5 +1,6 @@
-package com.abracecdcAPI.abracecdcAPI.domain.user;
+package com.abracecdcAPI.abracecdcAPI.domain.user.dto;
 
+import com.abracecdcAPI.abracecdcAPI.domain.user.entity.UserRole;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

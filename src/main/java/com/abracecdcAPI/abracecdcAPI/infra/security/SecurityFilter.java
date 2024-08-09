@@ -1,6 +1,6 @@
 package com.abracecdcAPI.abracecdcAPI.infra.security;
 
-import com.abracecdcAPI.abracecdcAPI.repositories.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -1,6 +1,6 @@
 package com.abracecdcAPI.abracecdcAPI.infra.security;
 
-import com.abracecdcAPI.abracecdcAPI.domain.user.User;
+import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
