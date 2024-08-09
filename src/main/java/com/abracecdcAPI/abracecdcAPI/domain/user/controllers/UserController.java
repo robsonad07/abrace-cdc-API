@@ -1,5 +1,6 @@
 package com.abracecdcAPI.abracecdcAPI.domain.user.controllers;
 
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.FindUserUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.dto.UserRecordDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
@@ -21,20 +22,27 @@ public class UserController {
     private UserRepository repository;
     @Autowired
     private ListAllUsersUseCase listAllUsersUseCase;
+    @Autowired
+    private FindUserUseCase findUserUseCase;
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getAllUsers(){
-        List<User> users = listAllUsersUseCase.execute();
-        return ResponseEntity.status(HttpStatus.OK).body(users);
+    public ResponseEntity<Object> getAllUsers(){
+        try {
+            List<User> users = listAllUsersUseCase.execute();
+            return ResponseEntity.status(HttpStatus.OK).body(users);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/user/{id}")
     public ResponseEntity<Object> getUser(@PathVariable(value = "id") UUID id){
-        Optional<User> user = repository.findById(id);
-        if(user.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        try {
+            User user = findUserUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        return ResponseEntity.status(HttpStatus.OK).body(user.get());
     }
 
     @PutMapping("/user/{id}")
