@@ -1,9 +1,9 @@
 package com.abracecdcAPI.abracecdcAPI.domain.user.controllers;
 
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.DeleteUserUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.FindUserUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.dto.UserRecordDTO;
-import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.ListAllUsersUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.UpdateAdminUseCase;
 import jakarta.validation.Valid;
@@ -13,19 +13,18 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
 public class UserController {
-    @Autowired
-    private UserRepository repository;
     @Autowired
     private ListAllUsersUseCase listAllUsersUseCase;
     @Autowired
     private FindUserUseCase findUserUseCase;
     @Autowired
     private UpdateAdminUseCase updateAdminUseCase;
+    @Autowired
+    private DeleteUserUseCase deleteUserUseCase;
 
     @GetMapping("/users")
     public ResponseEntity<Object> getAllUsers(){
@@ -51,19 +50,19 @@ public class UserController {
     public ResponseEntity<Object> updateUser(@PathVariable(value = "id") UUID id, @RequestBody @Valid UserRecordDTO userRecordDTO){
         try {
             User modelUser = updateAdminUseCase.execute(id, userRecordDTO);
-            return ResponseEntity.status(HttpStatus.OK).body(repository.save(modelUser));
+            return ResponseEntity.status(HttpStatus.OK).body(modelUser);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
     @DeleteMapping("/user/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable(value = "id") UUID id){
-        Optional<User> user = repository.findById(id);
-        if(user.isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
+        try {
+            String response = deleteUserUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        repository.delete(user.get());
-        return ResponseEntity.status(HttpStatus.OK).body("User deleted successfully.");
     }
 }
