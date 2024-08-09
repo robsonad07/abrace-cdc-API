@@ -6,6 +6,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.user.dto.RegisterDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.UserRole;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.LoginUserUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.RegisterAdminUseCase;
 import com.abracecdcAPI.abracecdcAPI.infra.security.TokenService;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -21,6 +22,8 @@ public class AuthenticationController {
     @Autowired
     LoginUserUseCase loginUserUseCase;
     @Autowired
+    RegisterAdminUseCase registerAdminUseCase;
+    @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository repository;
@@ -29,20 +32,27 @@ public class AuthenticationController {
 
     @PostMapping("/auth/login")
     public ResponseEntity<Object> login(@RequestBody @Valid AuthenticationDTO data){
-        var token = loginUserUseCase.execute(new UsernamePasswordAuthenticationToken(data.email(), data.password()));
+        try {
+            var token = loginUserUseCase.execute(new UsernamePasswordAuthenticationToken(data.email(), data.password()));
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
-        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 
     @PostMapping("/auth/register")
     public ResponseEntity<Object> register(@RequestBody @Valid RegisterDTO data){
-        if(this.repository.findByEmail(data.email()) != null) return ResponseEntity.badRequest().build();
+        try{
+            User newUser = registerAdminUseCase.execute(data);
+            if(newUser == null){
+                return ResponseEntity.badRequest().body("User already registered");
+            }
+            return ResponseEntity.ok().body(newUser);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
-        User newUser = new User(data.name(), data.email(), encryptedPassword, data.phone(), data.role());
-        this.repository.save(newUser);
-
-        return ResponseEntity.ok().build();
     }
 
     @PostMapping("/auth/register-user")

@@ -15,8 +15,6 @@ public class LoginUserUseCase {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
-    private UserRepository repository;
-    @Autowired
     private TokenService tokenService;
 
     public String execute(UsernamePasswordAuthenticationToken usernamePassword){
