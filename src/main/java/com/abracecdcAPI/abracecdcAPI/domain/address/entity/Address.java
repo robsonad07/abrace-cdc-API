@@ -17,13 +17,21 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String cidade;
+    private String city;
 
     private String cep;
 
-    private String rua;
+    private String road;
 
-    private int numero;
+    private int number;
 
-    private String complemento;
+    private String complement;
+
+    public Address(String city, String cep, String road, int number, String complement){
+        this.city = city;
+        this.cep = cep;
+        this.road = road;
+        this.number = number;
+        this.complement = complement;
+    }
 }
