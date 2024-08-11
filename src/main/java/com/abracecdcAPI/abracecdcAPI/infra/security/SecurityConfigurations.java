@@ -30,6 +30,7 @@ public class SecurityConfigurations {
                         .requestMatchers( "/organizer-event/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/address").permitAll()
                         .requestMatchers(HttpMethod.GET, "/address").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/address/**").permitAll()
                         .requestMatchers( "/categories/**").permitAll()
                         .requestMatchers( "/organizer-event/delete/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register-user").permitAll()
