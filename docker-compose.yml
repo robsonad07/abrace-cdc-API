@@ -7,6 +7,6 @@ services:
     ports:
       - 5432:5432
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=${spring.datasource.username}
+      - POSTGRES_PASSWORD=${spring.datasource.password}
       - POSTGRES_DB=abrace
