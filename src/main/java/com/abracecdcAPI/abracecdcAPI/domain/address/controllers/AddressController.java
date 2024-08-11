@@ -2,10 +2,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.address.controllers;
 
 import com.abracecdcAPI.abracecdcAPI.domain.address.dto.AddressDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
-import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.CreateAddressUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.FindAddressUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.GetAllAddressUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.UpdateAdressUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +22,8 @@ public class AddressController {
     FindAddressUseCase findAddressUseCase;
     @Autowired
     UpdateAdressUseCase updateAdressUseCase;
+    @Autowired
+    DeleteAddressUseCase deleteAddressUseCase;
 
     @PostMapping("/address")
     public ResponseEntity<Object> createAddress(@RequestBody AddressDTO addressDTO){
@@ -61,6 +60,16 @@ public class AddressController {
         try {
             Address address = updateAdressUseCase.execute(id, addressDTO);
             return ResponseEntity.status(HttpStatus.OK).body(address);
+        } catch (Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/address/{id}")
+    public ResponseEntity<Object> deleteAddress(@PathVariable(value = "id") UUID id){
+        try {
+            String msm = deleteAddressUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(msm);
         } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
