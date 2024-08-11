@@ -5,6 +5,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.CreateAddressUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.FindAddressUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.GetAllAddressUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.UpdateAdressUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +23,8 @@ public class AddressController {
     GetAllAddressUseCase getAllAddressUseCase;
     @Autowired
     FindAddressUseCase findAddressUseCase;
+    @Autowired
+    UpdateAdressUseCase updateAdressUseCase;
 
     @PostMapping("/address")
     public ResponseEntity<Object> createAddress(@RequestBody AddressDTO addressDTO){
@@ -49,6 +52,16 @@ public class AddressController {
             Address address = findAddressUseCase.execute(id);
             return ResponseEntity.status(HttpStatus.OK).body(address);
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/address/{id}")
+    public ResponseEntity<Object> updateAddress(@PathVariable(value = "id") UUID id, @RequestBody AddressDTO addressDTO){
+        try {
+            Address address = updateAdressUseCase.execute(id, addressDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(address);
+        } catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
