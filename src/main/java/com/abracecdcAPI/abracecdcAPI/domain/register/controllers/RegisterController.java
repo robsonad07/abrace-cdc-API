@@ -5,6 +5,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
 import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.CreateRegisterUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.FindRegisterUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.GetAllRegisterUserCase;
+import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.UpdateRegisterUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class RegisterController {
     GetAllRegisterUserCase getAllRegisterUserCase;
     @Autowired
     FindRegisterUseCase findRegisterUseCase;
+    @Autowired
+    UpdateRegisterUseCase updateRegisterUseCase;
 
     @PostMapping("/register")
     public ResponseEntity<Object> createRegister(@RequestBody @Valid RegisterDTO registerDTO){
@@ -49,6 +52,16 @@ public class RegisterController {
     public ResponseEntity<Object> findRegister(@PathVariable(value = "id") UUID id){
         try{
             Register register = findRegisterUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(register);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/register/{id}")
+    public ResponseEntity<Object> updateRegister(@PathVariable(value = "id") UUID id, @RequestBody @Valid RegisterDTO registerDTO){
+        try {
+            Register register = updateRegisterUseCase.execute(id, registerDTO);
             return ResponseEntity.status(HttpStatus.OK).body(register);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
