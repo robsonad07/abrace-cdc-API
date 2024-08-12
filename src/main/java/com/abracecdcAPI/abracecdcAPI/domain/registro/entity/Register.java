@@ -16,11 +16,11 @@ public class Register {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String url_image;
+    private String urlImage;
     private String description;
 
-    public Register(String url_image, String description){
-        this.url_image = url_image;
+    public Register(String urlImage, String description){
+        this.urlImage = urlImage;
         this.description = description;
     }
 }

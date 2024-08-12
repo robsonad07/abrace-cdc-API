@@ -1,4 +1,6 @@
 package com.abracecdcAPI.abracecdcAPI.domain.registro.dto;
 
-public record RegisterDTO(String url_image, String description) {
+import jakarta.validation.constraints.NotBlank;
+
+public record RegisterDTO(@NotBlank String urlImage, @NotBlank String description) {
 }
