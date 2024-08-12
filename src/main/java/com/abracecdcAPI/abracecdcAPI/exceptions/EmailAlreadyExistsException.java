@@ -2,6 +2,6 @@ package com.abracecdcAPI.abracecdcAPI.exceptions;
 
 public class EmailAlreadyExistsException extends RuntimeException{
   public EmailAlreadyExistsException() {
-    super("Email alredy exists");
+    super("Email alredy exists.");
   }
 }

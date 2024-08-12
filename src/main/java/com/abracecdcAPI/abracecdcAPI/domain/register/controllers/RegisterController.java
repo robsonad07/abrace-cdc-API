@@ -2,10 +2,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.register.controllers;
 
 import com.abracecdcAPI.abracecdcAPI.domain.register.dto.RegisterDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
-import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.CreateRegisterUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.FindRegisterUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.GetAllRegisterUserCase;
-import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.UpdateRegisterUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +22,8 @@ public class RegisterController {
     FindRegisterUseCase findRegisterUseCase;
     @Autowired
     UpdateRegisterUseCase updateRegisterUseCase;
+    @Autowired
+    DeleteRegisterUseCase deleteRegisterUseCase;
 
     @PostMapping("/register")
     public ResponseEntity<Object> createRegister(@RequestBody @Valid RegisterDTO registerDTO){
@@ -63,6 +62,16 @@ public class RegisterController {
         try {
             Register register = updateRegisterUseCase.execute(id, registerDTO);
             return ResponseEntity.status(HttpStatus.OK).body(register);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/register/{id}")
+    public ResponseEntity<Object> deleteRegister(@PathVariable(value = "id") UUID id){
+        try{
+            String msm = deleteRegisterUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(msm);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
