@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.registro.dto;
+package com.abracecdcAPI.abracecdcAPI.domain.register.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

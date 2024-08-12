@@ -1,8 +1,8 @@
-package com.abracecdcAPI.abracecdcAPI.domain.registro.useCases;
+package com.abracecdcAPI.abracecdcAPI.domain.register.useCases;
 
-import com.abracecdcAPI.abracecdcAPI.domain.registro.dto.RegisterDTO;
-import com.abracecdcAPI.abracecdcAPI.domain.registro.entity.Register;
-import com.abracecdcAPI.abracecdcAPI.domain.registro.repository.RegisterRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.register.dto.RegisterDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register.repository.RegisterRepository;
 import com.abracecdcAPI.abracecdcAPI.exceptions.RegisterAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
