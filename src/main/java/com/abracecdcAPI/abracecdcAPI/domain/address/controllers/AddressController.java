@@ -3,6 +3,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.address.controllers;
 import com.abracecdcAPI.abracecdcAPI.domain.address.dto.AddressDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class AddressController {
     DeleteAddressUseCase deleteAddressUseCase;
 
     @PostMapping("/address")
-    public ResponseEntity<Object> createAddress(@RequestBody AddressDTO addressDTO){
+    public ResponseEntity<Object> createAddress(@RequestBody @Valid AddressDTO addressDTO){
         try {
             Address address = createAddressUseCase.execute(addressDTO);
             return ResponseEntity.status(HttpStatus.OK).body(address);
@@ -56,7 +57,7 @@ public class AddressController {
     }
 
     @PutMapping("/address/{id}")
-    public ResponseEntity<Object> updateAddress(@PathVariable(value = "id") UUID id, @RequestBody AddressDTO addressDTO){
+    public ResponseEntity<Object> updateAddress(@PathVariable(value = "id") UUID id, @RequestBody @Valid AddressDTO addressDTO){
         try {
             Address address = updateAdressUseCase.execute(id, addressDTO);
             return ResponseEntity.status(HttpStatus.OK).body(address);
