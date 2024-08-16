@@ -3,6 +3,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.util.Optional;
@@ -48,6 +49,24 @@ public class CreateOrganizerUseCaseTest {
     assertEquals(organizerToCreate, organizerCreated);
 
   }
+
+  // @Test
+  // @DisplayName("Should be able to create an organizer")
+  // public void should_be_able_to_create_an_organizer_mock() {
+  //   var idOrganizer = UUID.randomUUID();
+
+  //   OrganizerRepository organizerRepository = mock(OrganizerRepository.class);
+
+  //   var organizerToCreate = OrganizerEntity.builder()
+  //       .id(idOrganizer)
+  //       .cellphone("9999-9999")
+  //       .name("organier-test")
+  //       .email("organizer@test.com")
+  //       .build();
+
+      
+    
+  // }
 
   @Test
   @DisplayName("Should not be able to create an organizer with same email")

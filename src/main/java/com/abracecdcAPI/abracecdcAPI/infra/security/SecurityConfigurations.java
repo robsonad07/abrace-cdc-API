@@ -27,7 +27,7 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers( "/organizer-event/**").permitAll()
+                        .requestMatchers( "/organizer/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/address").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/address").hasRole("USER")
                         .requestMatchers(HttpMethod.GET, "/address/**").hasRole("USER")
