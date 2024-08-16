@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.category_action.controller;
+package com.abracecdcAPI.abracecdcAPI.domain.category.controller;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.useCases.CreateCategoryUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.useCases.DeleteCategoryUseCases;
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.useCases.ListAllCategoryByFilterUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.useCases.UpdateCategoryUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
+import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.CreateCategoryUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.DeleteCategoryUseCases;
+import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.ListAllCategoryByFilterUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.UpdateCategoryUseCase;
 import com.abracecdcAPI.abracecdcAPI.exceptions.CategoryNotFoundException;
 
 @RestController

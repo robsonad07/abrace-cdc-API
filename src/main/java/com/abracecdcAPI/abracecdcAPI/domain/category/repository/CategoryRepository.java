@@ -1,11 +1,11 @@
-package com.abracecdcAPI.abracecdcAPI.domain.category_action.repository;
+package com.abracecdcAPI.abracecdcAPI.domain.category.repository;
 
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
+import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 
 
 

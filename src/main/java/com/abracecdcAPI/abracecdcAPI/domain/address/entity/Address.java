@@ -1,6 +1,8 @@
 package com.abracecdcAPI.abracecdcAPI.domain.address.entity;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +32,7 @@ public class Address {
     private String complement;
 
     @OneToMany(mappedBy = "address")
+    @JsonBackReference
     private List<Event> events;
 
     public Address(String city, String cep, String road, int number, String complement){

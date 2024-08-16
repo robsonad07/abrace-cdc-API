@@ -1,11 +1,10 @@
 package com.abracecdcAPI.abracecdcAPI.domain.register.entity;
 
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @Table(name = "register")
@@ -24,6 +23,7 @@ public class Register {
 
     @ManyToOne
     @JoinColumn(name = "event_id", nullable = false)
+    @JsonBackReference
     private Event event;
 
     public Register(String urlImage, String description){

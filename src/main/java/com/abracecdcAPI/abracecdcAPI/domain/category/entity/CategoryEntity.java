@@ -1,9 +1,11 @@
-package com.abracecdcAPI.abracecdcAPI.domain.category_action.entity;
+package com.abracecdcAPI.abracecdcAPI.domain.category.entity;
 
 import java.util.List;
 import java.util.UUID;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +27,7 @@ public class CategoryEntity {
     private String description;
 
     @OneToMany(mappedBy = "category")
+    @JsonBackReference
     private List<Event> events;
 
 }

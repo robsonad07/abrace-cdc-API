@@ -1,12 +1,12 @@
-package com.abracecdcAPI.abracecdcAPI.domain.category_action.useCases;
+package com.abracecdcAPI.abracecdcAPI.domain.category.useCases;
 
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
-import com.abracecdcAPI.abracecdcAPI.domain.category_action.repository.CategoryRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
+import com.abracecdcAPI.abracecdcAPI.domain.category.repository.CategoryRepository;
 import com.abracecdcAPI.abracecdcAPI.exceptions.CategoryNotFoundException;
 
 @Service

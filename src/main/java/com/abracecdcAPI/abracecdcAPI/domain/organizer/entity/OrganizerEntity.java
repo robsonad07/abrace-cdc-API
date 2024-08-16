@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.UUID;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +33,6 @@ public class OrganizerEntity {
   private String email;
 
   @OneToMany(mappedBy = "organizer")
+  @JsonBackReference
   private List<Event> events;
 }
