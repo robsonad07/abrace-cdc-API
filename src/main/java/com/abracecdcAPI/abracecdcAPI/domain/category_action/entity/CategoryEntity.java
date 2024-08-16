@@ -3,7 +3,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.category_action.entity;
 import java.util.List;
 import java.util.UUID;
 
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +25,6 @@ public class CategoryEntity {
     private String description;
 
     @OneToMany(mappedBy = "category")
-    private List<DonationEvent> donationEvents;
+    private List<Event> events;
 
 }

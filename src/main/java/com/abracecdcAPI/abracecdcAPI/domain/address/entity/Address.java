@@ -1,6 +1,6 @@
 package com.abracecdcAPI.abracecdcAPI.domain.address.entity;
 
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,7 +30,7 @@ public class Address {
     private String complement;
 
     @OneToMany(mappedBy = "address")
-    private List<DonationEvent> donationEvents;
+    private List<Event> events;
 
     public Address(String city, String cep, String road, int number, String complement){
         this.city = city;

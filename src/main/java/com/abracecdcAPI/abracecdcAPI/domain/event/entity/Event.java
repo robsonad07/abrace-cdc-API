@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity;
+package com.abracecdcAPI.abracecdcAPI.domain.event.entity;
 
 import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "donation_event")
@@ -17,13 +18,14 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class DonationEvent {
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String title;
     private String caption;
     private String description;
+    @Column(name="date_time", columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
 
     @ManyToOne
@@ -41,5 +43,8 @@ public class DonationEvent {
     @ManyToOne
     @JoinColumn(name = "register_id", nullable = false)
     private Register register;
+
+    @OneToMany(mappedBy = "event")
+    private List<Register> registers;
 
 }

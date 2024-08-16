@@ -3,7 +3,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.organizer.entity;
 import java.util.List;
 import java.util.UUID;
 
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,5 +31,5 @@ public class OrganizerEntity {
   private String email;
 
   @OneToMany(mappedBy = "organizer")
-  private List<DonationEvent> donationEvents;
+  private List<Event> events;
 }

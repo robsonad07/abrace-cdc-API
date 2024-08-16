@@ -1,6 +1,7 @@
 package com.abracecdcAPI.abracecdcAPI.domain.register.entity;
 
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
+import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,8 +22,9 @@ public class Register {
     private String urlImage;
     private String description;
 
-    @OneToMany(mappedBy = "register")
-    private List<DonationEvent> donationEvents;
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
+    private Event event;
 
     public Register(String urlImage, String description){
         this.urlImage = urlImage;
