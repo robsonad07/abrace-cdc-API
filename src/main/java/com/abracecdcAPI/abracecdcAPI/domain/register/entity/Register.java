@@ -26,9 +26,10 @@ public class Register {
     @JsonBackReference
     private Event event;
 
-    public Register(String urlImage, String description){
+    public Register(String urlImage, String description, Event event){
         this.urlImage = urlImage;
         this.description = description;
+        this.event = event;
     }
 
     public Register(UUID id,String urlImage, String description){
