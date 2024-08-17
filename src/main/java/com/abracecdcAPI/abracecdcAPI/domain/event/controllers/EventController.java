@@ -3,6 +3,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.event.controllers;
 import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.CreateEventUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.FindEventUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.GetAllEventUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.UpdateEventUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.event.dto.EventDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import jakarta.validation.Valid;
@@ -22,6 +23,8 @@ public class EventController {
     GetAllEventUseCase getAllEventUseCase;
     @Autowired
     FindEventUseCase findEventUseCase;
+    @Autowired
+    UpdateEventUseCase updateEventUseCase;
 
     @PostMapping("/event")
     public ResponseEntity<Object> createEvent(@RequestBody @Valid EventDTO eventDTO){
@@ -52,4 +55,16 @@ public class EventController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @PutMapping("/event/{id}")
+    public ResponseEntity<Object> updateEvent(@PathVariable(value = "id") UUID id, @RequestBody @Valid EventDTO eventDTO){
+        try {
+            Event event = updateEventUseCase.execute(id, eventDTO);
+            return ResponseEntity.status(HttpStatus.OK).body(event);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+
 }

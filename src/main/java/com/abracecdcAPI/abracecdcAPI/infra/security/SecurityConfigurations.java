@@ -48,6 +48,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/event").permitAll()
                         .requestMatchers(HttpMethod.GET, "/events").permitAll()
                         .requestMatchers(HttpMethod.GET, "/event/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/event/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
