@@ -1,5 +1,7 @@
 package com.abracecdcAPI.abracecdcAPI.domain.user.entity;
 
+import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,6 +29,10 @@ public class User implements UserDetails {
     private String password;
     private String phone;
     private UserRole role;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference
+    private List<DonationEvent> donationEvents;
 
     public User(String name, String email, String password, String phone, UserRole role){
         this.name = name;
