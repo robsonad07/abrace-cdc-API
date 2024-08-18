@@ -1,13 +1,12 @@
-package com.abracecdcAPI.abracecdcAPI.domain.category_action.entity;
+package com.abracecdcAPI.abracecdcAPI.domain.category.entity;
 
+import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +25,9 @@ public class CategoryEntity {
     private String name;
 
     private String description;
+
+    @OneToMany(mappedBy = "category")
+    @JsonBackReference
+    private List<Event> events;
 
 }

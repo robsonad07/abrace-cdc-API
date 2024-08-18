@@ -1,5 +1,7 @@
 package com.abracecdcAPI.abracecdcAPI.domain.register.entity;
 
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,7 +21,19 @@ public class Register {
     private String urlImage;
     private String description;
 
-    public Register(String urlImage, String description){
+    @ManyToOne
+    @JoinColumn(name = "event_id", nullable = false)
+    @JsonBackReference
+    private Event event;
+
+    public Register(String urlImage, String description, Event event){
+        this.urlImage = urlImage;
+        this.description = description;
+        this.event = event;
+    }
+
+    public Register(UUID id,String urlImage, String description){
+        this.id = id;
         this.urlImage = urlImage;
         this.description = description;
     }
