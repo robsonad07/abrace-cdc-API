@@ -1,9 +1,6 @@
 package com.abracecdcAPI.abracecdcAPI.domain.event.controllers;
 
-import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.CreateEventUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.FindEventUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.GetAllEventUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.UpdateEventUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.event.UseCases.*;
 import com.abracecdcAPI.abracecdcAPI.domain.event.dto.EventDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import jakarta.validation.Valid;
@@ -25,6 +22,8 @@ public class EventController {
     FindEventUseCase findEventUseCase;
     @Autowired
     UpdateEventUseCase updateEventUseCase;
+    @Autowired
+    DeleteEventUseCase deleteEventUseCase;
 
     @PostMapping("/event")
     public ResponseEntity<Object> createEvent(@RequestBody @Valid EventDTO eventDTO){
@@ -61,6 +60,16 @@ public class EventController {
         try {
             Event event = updateEventUseCase.execute(id, eventDTO);
             return ResponseEntity.status(HttpStatus.OK).body(event);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/event/{id}")
+    public ResponseEntity<Object> deleteEvent(@PathVariable(value = "id") UUID id){
+        try {
+            String msg = deleteEventUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(msg);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
