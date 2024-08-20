@@ -2,10 +2,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.donation_event.controllers;
 
 import com.abracecdcAPI.abracecdcAPI.domain.donation_event.dto.DonationEventDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases.CreateDonationEventUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases.FindDonationEventUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases.GetAllDonationEventUseCase;
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases.UpdateDonationUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,6 +22,8 @@ public class DonationEventController {
     private FindDonationEventUseCase findDonationEventUseCase;
     @Autowired
     private UpdateDonationUseCase updateDonationUseCase;
+    @Autowired
+    private DeleteDonationUseCase deleteDonationUseCase;
 
     @PostMapping("/donation-event")
     public ResponseEntity<Object> createDonationEvent(@RequestBody @Valid DonationEventDTO donationEventDTO){
@@ -61,6 +60,16 @@ public class DonationEventController {
         try{
             DonationEvent donationEvent = updateDonationUseCase.execute(id, donationEventDTO);
             return ResponseEntity.status(HttpStatus.OK).body(donationEvent);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/donation-event/{id}")
+    public ResponseEntity<Object> deleteDonationEvent(@PathVariable(value = "id") UUID id){
+        try{
+            String msm = deleteDonationUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(msm);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
