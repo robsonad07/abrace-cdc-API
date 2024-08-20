@@ -54,8 +54,6 @@ public class CreateEventUseCase {
         Event event = new Event(eventDTO.title(), eventDTO.caption(), eventDTO.description(), eventDTO.dateTime(),
                 category, organizer, address);
 
-        eventRepository.save(event);
-
-        return event;
+        return eventRepository.save(event);
     }
 }
