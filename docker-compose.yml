@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  postgres:
+    container_name: abrace_cdc_api
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${spring.datasource.username}
+      - POSTGRES_PASSWORD=${spring.datasource.password}
+      - POSTGRES_DB=abrace
