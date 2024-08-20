@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.register.dto;
+package com.abracecdcAPI.abracecdcAPI.domain.register_event.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

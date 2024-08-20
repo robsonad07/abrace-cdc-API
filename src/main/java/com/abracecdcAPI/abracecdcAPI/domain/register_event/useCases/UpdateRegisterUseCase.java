@@ -1,10 +1,10 @@
-package com.abracecdcAPI.abracecdcAPI.domain.register.useCases;
+package com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.abracecdcAPI.abracecdcAPI.domain.event.repository.EventRepository;
-import com.abracecdcAPI.abracecdcAPI.domain.register.dto.RegisterDTO;
-import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
-import com.abracecdcAPI.abracecdcAPI.domain.register.repository.RegisterRepository;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.dto.RegisterDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.repository.RegisterRepository;
 import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.RegisterNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;

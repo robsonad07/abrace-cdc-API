@@ -53,7 +53,7 @@ public class UpdateEventUseCase {
         OrganizerEntity organizer = optionalOrganizer.get();
 
         Event event = new Event(id, eventDTO.title(), eventDTO.caption(), eventDTO.description(), eventDTO.dateTime(),
-                category, organizer, address, optionalEvent.get().getRegisters());
+                category, organizer, address, optionalEvent.get().getRegisters(), optionalEvent.get().getDonationEvents());
 
         eventRepository.save(event);
 

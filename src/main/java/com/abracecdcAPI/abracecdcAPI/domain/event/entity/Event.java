@@ -2,8 +2,9 @@ package com.abracecdcAPI.abracecdcAPI.domain.event.entity;
 
 import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
+import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
-import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.entity.Register;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -46,6 +47,12 @@ public class Event {
     @OneToMany(mappedBy = "event")
     @JsonManagedReference
     private List<Register> registers;
+
+    @OneToMany(mappedBy = "event")
+    @JsonBackReference
+    private List<DonationEvent> donationEvents;
+
+
 
     public Event(String title, String caption, String description, LocalDateTime dateTime,
                  CategoryEntity category, OrganizerEntity organizer, Address address) {
