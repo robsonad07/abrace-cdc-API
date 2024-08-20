@@ -1,4 +1,4 @@
-package com.abracecdcAPI.abracecdcAPI.domain.register.entity;
+package com.abracecdcAPI.abracecdcAPI.domain.register_event.entity;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.fasterxml.jackson.annotation.JsonBackReference;

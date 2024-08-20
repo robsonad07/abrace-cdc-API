@@ -1,8 +1,8 @@
-package com.abracecdcAPI.abracecdcAPI.domain.register.controllers;
+package com.abracecdcAPI.abracecdcAPI.domain.register_event.controllers;
 
-import com.abracecdcAPI.abracecdcAPI.domain.register.dto.RegisterDTO;
-import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
-import com.abracecdcAPI.abracecdcAPI.domain.register.useCases.*;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.dto.RegisterDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
