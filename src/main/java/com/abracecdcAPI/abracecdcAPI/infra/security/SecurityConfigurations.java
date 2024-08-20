@@ -50,6 +50,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.GET, "/event/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/event/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/event/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/donation-event").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

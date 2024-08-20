@@ -2,7 +2,6 @@ package com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +31,11 @@ public class DonationEvent {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonManagedReference
     private User user;
+
+    public DonationEvent(Double value, Event event, User user){
+        this.value = value;
+        this.event = event;
+        this.user = user;
+    }
 
 }
