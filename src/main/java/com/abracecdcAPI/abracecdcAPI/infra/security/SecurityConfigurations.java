@@ -53,6 +53,7 @@ public class SecurityConfigurations {
                         .requestMatchers(HttpMethod.POST, "/donation-event").permitAll()
                         .requestMatchers(HttpMethod.GET, "/donation-events").permitAll()
                         .requestMatchers(HttpMethod.GET, "/donation-event/**").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/donation-event/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
