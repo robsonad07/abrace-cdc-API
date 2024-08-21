@@ -45,7 +45,7 @@ public class CreateEventUseCaseTest {
     private AddressRepository addressRepository;
 
     @Test
-    @DisplayName("Should be able to create a event")
+    @DisplayName("Should be able to create an event")
     public void should_be_able_to_create_an_event(){
         var idEvent = UUID.randomUUID();
         var idCategory = UUID.randomUUID();
@@ -77,10 +77,6 @@ public class CreateEventUseCaseTest {
                 .complement("teste")
                 .build();
 
-        Optional<CategoryEntity> optionalCategory = Optional.of(category);
-        Optional<OrganizerEntity> optionalOrganizer = Optional.of(organizer);
-        Optional<Address> optionalAddress = Optional.of(address);
-
         var eventToCreate = Event.builder()
                 .id(idEvent)
                 .title("teste")
@@ -93,9 +89,9 @@ public class CreateEventUseCaseTest {
                 .build();
 
         when(eventRepository.save(any(Event.class))).thenReturn(eventToCreate);
-        when(categoryRepository.findById(idCategory)).thenReturn(optionalCategory);
-        when(organizerRepository.findById(idOrganizer)).thenReturn(optionalOrganizer);
-        when(addressRepository.findById(idAddress)).thenReturn(optionalAddress);
+        when(categoryRepository.findById(idCategory)).thenReturn(Optional.of(category));
+        when(organizerRepository.findById(idOrganizer)).thenReturn(Optional.of(organizer));
+        when(addressRepository.findById(idAddress)).thenReturn(Optional.of(address));
 
         var eventCreated = createEventUseCase.execute(eventDTO);
 
