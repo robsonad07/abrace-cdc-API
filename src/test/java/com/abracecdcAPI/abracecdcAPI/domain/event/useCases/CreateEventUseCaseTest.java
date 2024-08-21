@@ -89,6 +89,7 @@ public class CreateEventUseCaseTest {
                 .build();
 
         when(eventRepository.save(any(Event.class))).thenReturn(eventToCreate);
+        when(eventRepository.findByTitleAndCaption(eventDTO.title(), eventDTO.caption())).thenReturn(Optional.empty());
         when(categoryRepository.findById(idCategory)).thenReturn(Optional.of(category));
         when(organizerRepository.findById(idOrganizer)).thenReturn(Optional.of(organizer));
         when(addressRepository.findById(idAddress)).thenReturn(Optional.of(address));
@@ -110,6 +111,11 @@ public class CreateEventUseCaseTest {
         assertEquals(eventCreated.getOrganizer(), captureEvent.getOrganizer());
         assertEquals(eventCreated.getAddress(), captureEvent.getAddress());
 
+
+        verify(eventRepository, times(1)).findByTitleAndCaption(eventDTO.title(), eventDTO.caption());
+        verify(addressRepository, times(1)).findById(idAddress);
+        verify(categoryRepository, times(1)).findById(idCategory);
+        verify(organizerRepository, times(1)).findById(idOrganizer);
         verify(eventRepository, times(1)).save(any(Event.class));
 
     }
@@ -165,7 +171,7 @@ public class CreateEventUseCaseTest {
             createEventUseCase.execute(eventDTO);
         });
 
-        verify(eventRepository, times(1)).findByTitleAndCaption(anyString(), anyString());
+        verify(eventRepository, times(1)).findByTitleAndCaption(eventDTO.title(), eventDTO.caption());
     }
 
     @Test
@@ -178,12 +184,14 @@ public class CreateEventUseCaseTest {
         EventDTO eventDTO = new EventDTO("teste", "teste", "teste",
                 LocalDateTime.parse("2002-02-08T16:10:01"), idCategory, idOrganizer, idAddress);
 
+        when(eventRepository.findByTitleAndCaption(eventDTO.title(), eventDTO.caption())).thenReturn(Optional.empty());
         when(addressRepository.findById(idAddress)).thenReturn(Optional.empty());
 
         assertThrows(AddressNotFoundException.class, () -> {
            createEventUseCase.execute(eventDTO);
         });
 
+        verify(eventRepository, times(1)).findByTitleAndCaption(eventDTO.title(), eventDTO.caption());
         verify(addressRepository, times(1)).findById(idAddress);
     }
 
@@ -206,6 +214,7 @@ public class CreateEventUseCaseTest {
                 .complement("teste")
                 .build();
 
+        when(eventRepository.findByTitleAndCaption(eventDTO.title(), eventDTO.caption())).thenReturn(Optional.empty());
         when(addressRepository.findById(idAddress)).thenReturn(Optional.of(address));
         when(categoryRepository.findById(idCategory)).thenReturn(Optional.empty());
 
@@ -213,6 +222,8 @@ public class CreateEventUseCaseTest {
             createEventUseCase.execute(eventDTO);
         });
 
+        verify(eventRepository, times(1)).findByTitleAndCaption(eventDTO.title(), eventDTO.caption());
+        verify(addressRepository, times(1)).findById(idAddress);
         verify(categoryRepository, times(1)).findById(idCategory);
     }
 
@@ -241,6 +252,7 @@ public class CreateEventUseCaseTest {
                 .description("teste")
                 .build();
 
+        when(eventRepository.findByTitleAndCaption(eventDTO.title(), eventDTO.caption())).thenReturn(Optional.empty());
         when(addressRepository.findById(idAddress)).thenReturn(Optional.of(address));
         when(categoryRepository.findById(idCategory)).thenReturn(Optional.of(category));
         when(organizerRepository.findById(idOrganizer)).thenReturn(Optional.empty());
@@ -249,6 +261,9 @@ public class CreateEventUseCaseTest {
             createEventUseCase.execute(eventDTO);
         });
 
+        verify(eventRepository, times(1)).findByTitleAndCaption(eventDTO.title(), eventDTO.caption());
+        verify(addressRepository, times(1)).findById(idAddress);
+        verify(categoryRepository, times(1)).findById(idCategory);
         verify(organizerRepository, times(1)).findById(idOrganizer);
     }
 }
