@@ -16,6 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
