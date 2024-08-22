@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-
 public class CategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

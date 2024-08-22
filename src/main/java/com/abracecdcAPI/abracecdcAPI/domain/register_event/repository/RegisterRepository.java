@@ -1,6 +1,6 @@
-package com.abracecdcAPI.abracecdcAPI.domain.register.repository;
+package com.abracecdcAPI.abracecdcAPI.domain.register_event.repository;
 
-import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.entity.Register;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
