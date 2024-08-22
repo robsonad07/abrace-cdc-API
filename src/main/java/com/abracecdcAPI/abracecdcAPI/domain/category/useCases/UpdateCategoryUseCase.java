@@ -1,32 +1,39 @@
 package com.abracecdcAPI.abracecdcAPI.domain.category.useCases;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.abracecdcAPI.abracecdcAPI.domain.category.dto.CategoryDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.category.repository.CategoryRepository;
 import com.abracecdcAPI.abracecdcAPI.exceptions.CategoryNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class UpdateCategoryUseCase {
-    @Autowired
-    private CategoryRepository categoryRepository;  
 
-    public CategoryEntity execute(CategoryEntity categoryEntity) {  
-        Optional<CategoryEntity> categoryOptional = this.categoryRepository.findById(categoryEntity.getId());
-        
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    public CategoryEntity execute(UUID id, CategoryDTO categoryDTO) {
+        Optional<CategoryEntity> categoryOptional = categoryRepository.findById(id);
+
         if (categoryOptional.isEmpty()) {
             throw new CategoryNotFoundException();
         }
 
         var existingCategory = categoryOptional.get();
-        existingCategory.setName(categoryEntity.getName());
-        existingCategory.setDescription(categoryEntity.getDescription());
 
-        var result = categoryRepository.save(existingCategory);
+        if (categoryDTO.getName() != null) {
+            existingCategory.setName(categoryDTO.getName());
+        }
 
-        return result;
+        if (categoryDTO.getDescription() != null) {
+            existingCategory.setDescription(categoryDTO.getDescription());
+        }
+
+        return categoryRepository.save(existingCategory);
     }
 }
+
