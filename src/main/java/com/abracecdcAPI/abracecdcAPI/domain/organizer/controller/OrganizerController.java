@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.CreateOrganizerUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.DeleteOrganizerUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.GetOrganizerByIdUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.ListAllOrganizerByFilterUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.UpdateOrganizerUseCase;
 import com.abracecdcAPI.abracecdcAPI.exceptions.OrganizerNotFoundException;
@@ -37,6 +38,9 @@ public class OrganizerController {
 
   @Autowired
   private ListAllOrganizerByFilterUseCase listAllOrganizerByFilterUseCase;
+
+  @Autowired
+  private GetOrganizerByIdUseCase getOrganizerByIdUseCase;
 
   @PostMapping("/create")
   public ResponseEntity<Object> createOrganizer(@RequestBody OrganizerEntity organizerEntity) {
@@ -73,6 +77,18 @@ public class OrganizerController {
     try {
       deleteOrganizerUseCase.execute(organizerIdToDelete);
       return ResponseEntity.noContent().build();
+    } catch (OrganizerNotFoundException e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+  }
+
+  @GetMapping("/{organizerId}")
+  public ResponseEntity<Object> getOrganizerById(@PathVariable UUID organizerId) {
+    try {
+      var organizer = this.getOrganizerByIdUseCase.execute(organizerId);
+      return ResponseEntity.ok().body(organizer);
     } catch (OrganizerNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     } catch (Exception e) {

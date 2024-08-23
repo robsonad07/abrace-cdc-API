@@ -1,44 +1,40 @@
-package com.abracecdcAPI.abracecdcAPI.domain.organizer.entity;
+package com.abracecdcAPI.abracecdcAPI.domain.register_action.entity;
 
-import java.util.List;
 import java.util.UUID;
 
-import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.abracecdcAPI.abracecdcAPI.domain.action.entity.ActionEntity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "organizers")
-@Table(name = "organizers")
+@Table(name = "registers_action")
+@Entity(name = "registers_action")
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class OrganizerEntity {
-  
+public class RegisterActionEntity {
+
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  private String name;
+  private String urlImage;
+  private String description;
 
-  @Column(unique = true)
-  private String cellphone;
-
-  @Column(unique = true)
-  private String email;
-
-  @OneToMany(mappedBy = "organizer")
+  @ManyToOne
+  @JoinColumn(name = "action_id", nullable = false)
   @JsonBackReference
-  private List<Event> events;
+  private ActionEntity actionEntity;
+
 }
