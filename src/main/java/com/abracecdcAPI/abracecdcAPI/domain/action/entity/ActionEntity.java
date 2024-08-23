@@ -6,8 +6,9 @@ import java.util.UUID;
 
 import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.category_action.entity.CategoryEntity;
+import com.abracecdcAPI.abracecdcAPI.domain.donation_action.entity.DonationActionEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
-import com.abracecdcAPI.abracecdcAPI.domain.register.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register_action.entity.RegisterActionEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
@@ -20,6 +21,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -28,6 +30,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class ActionEntity {
 
   @Id
@@ -54,8 +57,12 @@ public class ActionEntity {
   @JoinColumn(name = "address_id")
   private Address addressEntity;
 
-  @OneToMany(mappedBy = "action")
+  @OneToMany(mappedBy = "actionEntity")
   @JsonManagedReference
-  private List<Register> registers;
+  private List<RegisterActionEntity> registers;
+
+  @OneToMany(mappedBy = "actionEntity")
+  @JsonManagedReference
+  private List<DonationActionEntity> donationsAction;
 
 }
