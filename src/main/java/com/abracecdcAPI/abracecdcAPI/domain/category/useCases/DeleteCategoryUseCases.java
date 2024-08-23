@@ -20,7 +20,7 @@ public class DeleteCategoryUseCases {
 
     public void execute(UUID categoryEventId) {
         Optional<CategoryEntity> categoryOptional =
-         this.categoryRepository.findById(categoryEventId);
+        this.categoryRepository.findById(categoryEventId);
 
         if (categoryOptional.isEmpty()) {
             throw new CategoryNotFoundException();
