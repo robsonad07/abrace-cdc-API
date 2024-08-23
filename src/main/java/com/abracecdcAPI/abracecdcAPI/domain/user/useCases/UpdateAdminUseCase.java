@@ -22,7 +22,8 @@ public class UpdateAdminUseCase {
             throw new UserNotFoundException();
         }
         String encryptedPassword = new BCryptPasswordEncoder().encode(userRecordDTO.password());
-        User modelUser = new User(id ,userRecordDTO.name(), userRecordDTO.email(), encryptedPassword, userRecordDTO.phone(), userRecordDTO.role());
+        User modelUser = new User(id ,userRecordDTO.name(), userRecordDTO.email(), encryptedPassword, userRecordDTO.phone(), userRecordDTO.role(),
+                user.get().getDonationEvents());
         repository.save(modelUser);
         return modelUser;
     }

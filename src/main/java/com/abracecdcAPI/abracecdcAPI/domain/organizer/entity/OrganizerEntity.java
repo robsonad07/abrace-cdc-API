@@ -1,13 +1,12 @@
 package com.abracecdcAPI.abracecdcAPI.domain.organizer.entity;
 
+import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,4 +31,8 @@ public class OrganizerEntity {
 
   @Column(unique = true)
   private String email;
+
+  @OneToMany(mappedBy = "organizer")
+  @JsonBackReference
+  private List<Event> events;
 }
