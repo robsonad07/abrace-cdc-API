@@ -2,7 +2,6 @@ package com.abracecdcAPI.abracecdcAPI.domain.address.entity;
 
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
