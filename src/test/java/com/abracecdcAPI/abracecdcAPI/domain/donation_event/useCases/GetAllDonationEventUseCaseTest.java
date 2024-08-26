@@ -2,7 +2,6 @@ package com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases;
 
 import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
 import com.abracecdcAPI.abracecdcAPI.domain.donation_event.repository.DonationEventRepository;
-import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

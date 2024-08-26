@@ -1,13 +1,10 @@
 package com.abracecdcAPI.abracecdcAPI.domain.donation_event.useCases;
 
-
-import com.abracecdcAPI.abracecdcAPI.domain.donation_event.dto.DonationEventDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.donation_event.entity.DonationEvent;
 import com.abracecdcAPI.abracecdcAPI.domain.donation_event.repository.DonationEventRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.exceptions.DonationEventNotFoundException;
-import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
