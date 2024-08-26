@@ -7,6 +7,10 @@ import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.abracecdcAPI.abracecdcAPI.domain.event.repository.EventRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.exceptions.AddressNotFoundException;
+import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
+import com.abracecdcAPI.abracecdcAPI.exceptions.UserNotFoundException;
+import com.abracecdcAPI.abracecdcAPI.exceptions.ValueOfDonationEventIsNegativeException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -75,6 +79,56 @@ public class CreateDonationEventUseCaseTest {
         verify(userRepository, times(1)).findById(idUser);
         verify(donationEventRepository, times(1)).save(any(DonationEvent.class));
 
+    }
+
+    @Test
+    @DisplayName("Should not be possible to create an event with a negative value.")
+    public void should_not_be_possible_to_create_an_event_with_a_negative_value(){
+        UUID idDonationEvent = UUID.randomUUID();
+        UUID idEvent = UUID.randomUUID();
+        UUID idUser = UUID.randomUUID();
+
+        Event event = Event.builder().build();
+        User user = User.builder().build();
+
+        DonationEventDTO donationEventDTO = new DonationEventDTO(-10.0, idEvent, idUser);
+
+        assertThrows(ValueOfDonationEventIsNegativeException.class, () -> {
+            createDonationEventUseCase.execute(donationEventDTO);
+        });
+
+    }
+
+    @Test
+    @DisplayName("Should not be possible to create an donation event with a non-existent event.")
+    public void should_not_be_possible_to_create_an_event_donation_with_a_non_existent_event(){
+        UUID idEvent = UUID.randomUUID();
+        UUID idUser = UUID.randomUUID();
+
+        DonationEventDTO donationEventDTO = new DonationEventDTO(10.0, idEvent, idUser);
+
+        when(eventRepository.findById(idEvent)).thenReturn(Optional.empty());
+
+        assertThrows(EventNotFoundException.class, () -> {
+            createDonationEventUseCase.execute(donationEventDTO);
+        });
+    }
+
+    @Test
+    @DisplayName("Should not be possible to create an donation event with a non-existent user.")
+    public void should_not_be_possible_to_create_an_event_donation_with_a_non_existent_user(){
+        UUID idEvent = UUID.randomUUID();
+        UUID idUser = UUID.randomUUID();
+
+        DonationEventDTO donationEventDTO = new DonationEventDTO(10.0, idEvent, idUser);
+        Event event = Event.builder().build();
+
+        when(eventRepository.findById(idEvent)).thenReturn(Optional.of(event));
+        when(userRepository.findById(idUser)).thenReturn(Optional.empty());
+
+        assertThrows(UserNotFoundException.class, () -> {
+            createDonationEventUseCase.execute(donationEventDTO);
+        });
     }
 
 }

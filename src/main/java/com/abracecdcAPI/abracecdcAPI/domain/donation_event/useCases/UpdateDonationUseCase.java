@@ -41,7 +41,7 @@ public class UpdateDonationUseCase {
         }
 
         DonationEvent donationEvent = new DonationEvent(id, donationEventDTO.value(), optionalEvent.get(), optionalUser.get());
-        donationEventRepository.save(donationEvent);
-        return donationEvent;
+
+        return donationEventRepository.save(donationEvent);
     }
 }
