@@ -21,7 +21,7 @@ public class DonationEventController {
     @Autowired
     private FindDonationEventUseCase findDonationEventUseCase;
     @Autowired
-    private UpdateDonationUseCase updateDonationUseCase;
+    private UpdateDonationEventUseCase updateDonationEventUseCase;
     @Autowired
     private DeleteDonationUseCase deleteDonationUseCase;
 
@@ -58,7 +58,7 @@ public class DonationEventController {
     @PutMapping("/donation-event/{id}")
     public ResponseEntity<Object> updateDonationEvent(@PathVariable(value = "id") UUID id, @RequestBody @Valid DonationEventDTO donationEventDTO){
         try{
-            DonationEvent donationEvent = updateDonationUseCase.execute(id, donationEventDTO);
+            DonationEvent donationEvent = updateDonationEventUseCase.execute(id, donationEventDTO);
             return ResponseEntity.status(HttpStatus.OK).body(donationEvent);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -7,7 +7,6 @@ import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.abracecdcAPI.abracecdcAPI.domain.event.repository.EventRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
-import com.abracecdcAPI.abracecdcAPI.exceptions.AddressNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.UserNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.ValueOfDonationEventIsNegativeException;
@@ -84,12 +83,8 @@ public class CreateDonationEventUseCaseTest {
     @Test
     @DisplayName("Should not be possible to create an event with a negative value.")
     public void should_not_be_possible_to_create_an_event_with_a_negative_value(){
-        UUID idDonationEvent = UUID.randomUUID();
         UUID idEvent = UUID.randomUUID();
         UUID idUser = UUID.randomUUID();
-
-        Event event = Event.builder().build();
-        User user = User.builder().build();
 
         DonationEventDTO donationEventDTO = new DonationEventDTO(-10.0, idEvent, idUser);
 
@@ -112,6 +107,7 @@ public class CreateDonationEventUseCaseTest {
         assertThrows(EventNotFoundException.class, () -> {
             createDonationEventUseCase.execute(donationEventDTO);
         });
+        verify(eventRepository, times(1)).findById(idEvent);
     }
 
     @Test
@@ -129,6 +125,9 @@ public class CreateDonationEventUseCaseTest {
         assertThrows(UserNotFoundException.class, () -> {
             createDonationEventUseCase.execute(donationEventDTO);
         });
+        verify(eventRepository, times(1)).findById(idEvent);
+        verify(userRepository, times(1)).findById(idUser);
+
     }
 
 }
