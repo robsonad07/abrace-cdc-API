@@ -4,17 +4,23 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 
-
-
+@Repository
 public interface CategoryRepository extends JpaRepository<CategoryEntity, UUID> {
-    List<CategoryEntity> findByName(String name);
+
+    List<CategoryEntity> findByNameContainingIgnoreCase(String name);
 
     @Override
-    public CategoryEntity save(CategoryEntity CategoryEntity);
+    CategoryEntity save(CategoryEntity categoryEntity);
 
     @Override
-    public void delete(CategoryEntity existingCategoryEvent);
+    void delete(CategoryEntity categoryEntity);
+
+    boolean existsByName(String name);
+
+    @Override
+    void deleteById(UUID id);
 }
