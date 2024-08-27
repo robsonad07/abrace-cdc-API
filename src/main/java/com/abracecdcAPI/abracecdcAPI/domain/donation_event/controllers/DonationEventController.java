@@ -21,9 +21,9 @@ public class DonationEventController {
     @Autowired
     private FindDonationEventUseCase findDonationEventUseCase;
     @Autowired
-    private UpdateDonationUseCase updateDonationUseCase;
+    private UpdateDonationEventUseCase updateDonationEventUseCase;
     @Autowired
-    private DeleteDonationUseCase deleteDonationUseCase;
+    private DeleteDonationEventUseCase deleteDonationEventUseCase;
 
     @PostMapping("/donation-event")
     public ResponseEntity<Object> createDonationEvent(@RequestBody @Valid DonationEventDTO donationEventDTO){
@@ -58,7 +58,7 @@ public class DonationEventController {
     @PutMapping("/donation-event/{id}")
     public ResponseEntity<Object> updateDonationEvent(@PathVariable(value = "id") UUID id, @RequestBody @Valid DonationEventDTO donationEventDTO){
         try{
-            DonationEvent donationEvent = updateDonationUseCase.execute(id, donationEventDTO);
+            DonationEvent donationEvent = updateDonationEventUseCase.execute(id, donationEventDTO);
             return ResponseEntity.status(HttpStatus.OK).body(donationEvent);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -68,7 +68,7 @@ public class DonationEventController {
     @DeleteMapping("/donation-event/{id}")
     public ResponseEntity<Object> deleteDonationEvent(@PathVariable(value = "id") UUID id){
         try{
-            String msm = deleteDonationUseCase.execute(id);
+            String msm = deleteDonationEventUseCase.execute(id);
             return ResponseEntity.status(HttpStatus.OK).body(msm);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
