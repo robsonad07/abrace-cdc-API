@@ -1,6 +1,5 @@
 package com.abracecdcAPI.abracecdcAPI.domain.user.entity;
 
-import org.apache.catalina.User;
 
 public enum UserRole {
     ADMIN("admin"),
