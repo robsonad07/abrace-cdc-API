@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateActionDTO {
   
+  private UUID actionId;
   private UUID categoryId;
   private UUID organizerId;
   private UUID addressId;
