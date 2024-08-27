@@ -90,6 +90,7 @@ public class UpdateDonationEventUseCaseTest {
         verify(eventRepository, times(1)).findById(idEvent);
         verify(userRepository, times(1)).findById(idUser);
         verify(donationEventRepository, times(1)).save(any(DonationEvent.class));
+
     }
 
     @Test

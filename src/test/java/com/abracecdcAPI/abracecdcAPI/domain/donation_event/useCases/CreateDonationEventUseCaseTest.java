@@ -107,7 +107,9 @@ public class CreateDonationEventUseCaseTest {
         assertThrows(EventNotFoundException.class, () -> {
             createDonationEventUseCase.execute(donationEventDTO);
         });
+
         verify(eventRepository, times(1)).findById(idEvent);
+
     }
 
     @Test
@@ -125,6 +127,7 @@ public class CreateDonationEventUseCaseTest {
         assertThrows(UserNotFoundException.class, () -> {
             createDonationEventUseCase.execute(donationEventDTO);
         });
+
         verify(eventRepository, times(1)).findById(idEvent);
         verify(userRepository, times(1)).findById(idUser);
 

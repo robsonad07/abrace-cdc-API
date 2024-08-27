@@ -57,6 +57,7 @@ public class DeleteDonationEventUseCaseTest {
 
         verify(donationEventRepository, times(1)).findById(idDonationEvent);
         verify(donationEventRepository, times(1)).deleteById(idDonationEvent);
+
     }
 
     @Test

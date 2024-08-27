@@ -73,5 +73,6 @@ public class FindDonationEventUseCaseTest {
         });
 
         verify(donationEventRepository, times(1)).findById(idDonationEvent);
+
     }
 }
