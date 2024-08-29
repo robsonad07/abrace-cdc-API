@@ -11,6 +11,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.ArgumentMatchers.any;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -57,6 +60,8 @@ public class CreateAddressUseCaseTest{
         var retrivedAddress = createAddressUseCase.execute(addressDTO);
 
         assertEquals(retrivedAddress, addressToCreate);
+
+        verify(addressRepository, times(1)).save(addressToCreate);
     }
 
     @Test
@@ -91,6 +96,8 @@ public class CreateAddressUseCaseTest{
         )).thenReturn(Optional.of(addressToCreate));
 
         assertThrows(AddressAlreadyExistException.class, () -> createAddressUseCase.execute(addressDTO));
+   
+        verify(addressRepository, never()).save(any(Address.class));
     }
 
     @Test
@@ -108,5 +115,7 @@ public class CreateAddressUseCaseTest{
             .build();
 
         assertThrows(AddressWithNullParameterException.class, () -> createAddressUseCase.execute(addressDTO));
+   
+        verify(addressRepository, never()).save(any(Address.class));
     }
 }
