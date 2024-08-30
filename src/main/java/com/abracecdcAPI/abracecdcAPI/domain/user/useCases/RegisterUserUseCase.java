@@ -18,7 +18,7 @@ public class RegisterUserUseCase {
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.name(), data.email(), encryptedPassword, data.phone(), UserRole.USER);
-        this.repository.save(newUser);
-        return newUser;
+        
+        return repository.save(newUser);
     }
 }
