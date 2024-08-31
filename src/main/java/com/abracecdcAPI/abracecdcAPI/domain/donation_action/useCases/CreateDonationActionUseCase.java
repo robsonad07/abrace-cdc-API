@@ -12,6 +12,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.donation_action.entity.DonationActio
 import com.abracecdcAPI.abracecdcAPI.domain.donation_action.repository.DonationActionRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
+import com.abracecdcAPI.abracecdcAPI.exceptions.ValueOfDonationActionIsNegativeException;
 
 @Service
 public class CreateDonationActionUseCase {
@@ -30,6 +31,10 @@ public class CreateDonationActionUseCase {
 
     Optional<ActionEntity> actionOptional = this.actionRepository.findById(createDonationActionDTO.getActionId());
 
+    if(createDonationActionDTO.getValue() < 0) {
+      throw new ValueOfDonationActionIsNegativeException();
+    }
+
     if(userOptional.isEmpty()) {
       throw new RuntimeException("user not found");
     }
@@ -37,7 +42,7 @@ public class CreateDonationActionUseCase {
     if(actionOptional.isEmpty()) {
       throw new RuntimeException("action not found");
     }
-
+    
     var donationActionEntity = DonationActionEntity.builder()
         .user(userOptional.get())
         .actionEntity(actionOptional.get())
