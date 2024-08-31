@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class DeleteDonationUseCase {
+public class DeleteDonationEventUseCase {
     @Autowired
     private DonationEventRepository donationEventRepository;
 
