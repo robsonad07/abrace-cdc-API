@@ -10,6 +10,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import com.abracecdcAPI.abracecdcAPI.exceptions.DonationEventNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.UserNotFoundException;
+import com.abracecdcAPI.abracecdcAPI.exceptions.ValueOfDonationEventIsNegativeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class UpdateDonationUseCase {
+public class UpdateDonationEventUseCase {
     @Autowired
     private DonationEventRepository donationEventRepository;
     @Autowired
@@ -30,6 +31,10 @@ public class UpdateDonationUseCase {
         Optional<Event> optionalEvent = eventRepository.findById(donationEventDTO.event_id());
         Optional<User> optionalUser = userRepository.findById((donationEventDTO.user_id()));
 
+        if(donationEventDTO.value() < 0){
+            throw new ValueOfDonationEventIsNegativeException();
+        }
+
         if(optionalDonationEvent.isEmpty()){
             throw new DonationEventNotFoundException();
         }
@@ -41,7 +46,7 @@ public class UpdateDonationUseCase {
         }
 
         DonationEvent donationEvent = new DonationEvent(id, donationEventDTO.value(), optionalEvent.get(), optionalUser.get());
-        donationEventRepository.save(donationEvent);
-        return donationEvent;
+
+        return donationEventRepository.save(donationEvent);
     }
 }

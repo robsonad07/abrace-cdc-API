@@ -1,14 +1,14 @@
 package com.abracecdcAPI.abracecdcAPI.domain.event.UseCases;
 
-import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
-import com.abracecdcAPI.abracecdcAPI.domain.event.repository.EventRepository;
-import com.abracecdcAPI.abracecdcAPI.exceptions.AddressNotFoundException;
-import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.UUID;
+import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
+import com.abracecdcAPI.abracecdcAPI.domain.event.repository.EventRepository;
+import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
 
 @Service
 public class DeleteEventUseCase {

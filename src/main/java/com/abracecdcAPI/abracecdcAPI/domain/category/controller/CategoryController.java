@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.abracecdcAPI.abracecdcAPI.domain.category.dto.CategoryDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.CreateCategoryUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.DeleteCategoryUseCases;
@@ -47,11 +48,10 @@ public class CategoryController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
-
-    @PutMapping("/update")
-        public ResponseEntity<Object> updateCategory(@RequestBody CategoryEntity categoryEntity) {
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Object> updateCategory(@PathVariable UUID id, @RequestBody CategoryDTO categoryDTO) {
         try {
-            var result = updateCategoryUseCase.execute(categoryEntity);
+            var result = updateCategoryUseCase.execute(id, categoryDTO);
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

@@ -15,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Builder
 public class DonationEvent {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
