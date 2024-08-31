@@ -50,7 +50,9 @@ public class UpdateDonationActionUseCase {
     existingDonationAction.setUser(userOptional.get());
     existingDonationAction.setValue(updateDonationActionDTO.getValue());
     
-    return this.donationActionRepository.save(existingDonationAction);
+    this.donationActionRepository.save(existingDonationAction);
+  
+    return existingDonationAction;
   }
 
 }
