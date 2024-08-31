@@ -26,8 +26,7 @@ public class UpdateDonationActionUseCase {
   private ActionRepository actionRepository;
 
   public DonationActionEntity execute(UpdateDonationActionDTO updateDonationActionDTO) {
-    Optional<DonationActionEntity> donationActionOptional = this.donationActionRepository
-        .findById(updateDonationActionDTO.getId());
+    Optional<DonationActionEntity> donationActionOptional = this.donationActionRepository.findById(updateDonationActionDTO.getId());
 
     Optional<User> userOptional = this.userRepository.findById(updateDonationActionDTO.getUserId());
 
@@ -50,11 +49,10 @@ public class UpdateDonationActionUseCase {
     existingDonationAction.setActionEntity(actionOptional.get());
     existingDonationAction.setUser(userOptional.get());
     existingDonationAction.setValue(updateDonationActionDTO.getValue());
-
-    var donationAction = this.donationActionRepository.save(existingDonationAction);
-
-    return donationAction;
-
+    
+    this.donationActionRepository.save(existingDonationAction);
+  
+    return existingDonationAction;
   }
 
 }
