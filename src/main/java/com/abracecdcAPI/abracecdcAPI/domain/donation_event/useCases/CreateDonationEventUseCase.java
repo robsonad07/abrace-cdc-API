@@ -9,6 +9,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.repository.UserRepository;
 import com.abracecdcAPI.abracecdcAPI.exceptions.EventNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.UserNotFoundException;
+import com.abracecdcAPI.abracecdcAPI.exceptions.ValueOfDonationEventIsNegativeException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,9 @@ public class CreateDonationEventUseCase {
     public DonationEvent execute(DonationEventDTO donationEventDTO){
         Optional<Event> optionalEvent = eventRepository.findById(donationEventDTO.event_id());
         Optional<User> optionalUser = userRepository.findById(donationEventDTO.user_id());
+        if(donationEventDTO.value() < 0){
+            throw new ValueOfDonationEventIsNegativeException();
+        }
         if(optionalEvent.isEmpty()){
             throw new EventNotFoundException();
         }
@@ -33,7 +37,6 @@ public class CreateDonationEventUseCase {
             throw new UserNotFoundException();
         }
         DonationEvent donationEvent = new DonationEvent(donationEventDTO.value(), optionalEvent.get(), optionalUser.get());
-        donationEventRepository.save(donationEvent);
-        return donationEvent;
+        return donationEventRepository.save(donationEvent);
     }
 }

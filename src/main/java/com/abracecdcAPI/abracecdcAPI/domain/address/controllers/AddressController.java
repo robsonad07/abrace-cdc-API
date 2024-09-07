@@ -1,16 +1,28 @@
 package com.abracecdcAPI.abracecdcAPI.domain.address.controllers;
 
-import com.abracecdcAPI.abracecdcAPI.domain.address.dto.AddressDTO;
-import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
-import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.*;
-import jakarta.validation.Valid;
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-import java.util.UUID;
+import com.abracecdcAPI.abracecdcAPI.domain.address.dto.AddressDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.CreateAddressUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.DeleteAddressUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.FindAddressUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.GetAllAddressUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.address.useCases.UpdateAddressUseCase;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class AddressController {
@@ -22,7 +34,7 @@ public class AddressController {
     @Autowired
     FindAddressUseCase findAddressUseCase;
     @Autowired
-    UpdateAdressUseCase updateAdressUseCase;
+    UpdateAddressUseCase updateAdressUseCase;
     @Autowired
     DeleteAddressUseCase deleteAddressUseCase;
 

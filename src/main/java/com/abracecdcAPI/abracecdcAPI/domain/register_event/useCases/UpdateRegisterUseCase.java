@@ -1,5 +1,4 @@
 package com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases;
-
 import com.abracecdcAPI.abracecdcAPI.domain.event.entity.Event;
 import com.abracecdcAPI.abracecdcAPI.domain.event.repository.EventRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.register_event.dto.RegisterDTO;
@@ -17,21 +16,26 @@ import java.util.UUID;
 public class UpdateRegisterUseCase {
     @Autowired
     RegisterRepository registerRepository;
+    
     @Autowired
     private EventRepository eventRepository;
 
     public Register execute(UUID id, RegisterDTO registerDTO){
         Optional<Register> register = registerRepository.findById(id);
+    
+        if(register.isEmpty()) {
+            throw new RegisterNotFoundException();
+        }
+    
         Optional<Event> optionalEvent = eventRepository.findById(registerDTO.event_id());
-
-        if(register.isEmpty()) throw new RegisterNotFoundException();
-
+    
         if(optionalEvent.isEmpty()){
             throw new EventNotFoundException();
         }
-
+    
         Register newRegister = new Register(id, registerDTO.urlImage(), registerDTO.description(), optionalEvent.get());
         registerRepository.save(newRegister);
         return newRegister;
     }
+    
 }
