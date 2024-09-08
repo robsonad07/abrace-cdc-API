@@ -11,6 +11,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.register_action.entity.RegisterActionEntity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -57,11 +58,11 @@ public class ActionEntity {
   @JoinColumn(name = "address_id")
   private Address addressEntity;
 
-  @OneToMany(mappedBy = "actionEntity")
+  @OneToMany(mappedBy = "actionEntity", cascade = CascadeType.REMOVE)
   @JsonManagedReference
   private List<RegisterActionEntity> registers;
 
-  @OneToMany(mappedBy = "actionEntity")
+  @OneToMany(mappedBy = "actionEntity", cascade = CascadeType.REMOVE)
   @JsonManagedReference
   private List<DonationActionEntity> donationsAction;
 

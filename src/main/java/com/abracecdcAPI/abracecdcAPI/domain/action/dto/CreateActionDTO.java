@@ -1,11 +1,7 @@
 package com.abracecdcAPI.abracecdcAPI.domain.action.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
-
-import com.abracecdcAPI.abracecdcAPI.domain.donation_action.entity.DonationActionEntity;
-import com.abracecdcAPI.abracecdcAPI.domain.register_action.entity.RegisterActionEntity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,9 +23,6 @@ public class CreateActionDTO {
   private String subtitle;
   private String description;
   private String duration;
-  
-  private List<RegisterActionEntity> registers;
-  private List<DonationActionEntity> donationsAction;
 
   private LocalDateTime dateTime;
 }
