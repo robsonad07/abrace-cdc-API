@@ -66,8 +66,6 @@ public class CreateActionUseCase {
         .subtitle(createActionDTO.getSubtitle())
         .description(createActionDTO.getDescription())
         .dateTime(createActionDTO.getDateTime())
-        .registers(createActionDTO.getRegisters())
-        .donationsAction(createActionDTO.getDonationsAction())
         .build();
 
     return this.actionRepository.save((actionEntity));

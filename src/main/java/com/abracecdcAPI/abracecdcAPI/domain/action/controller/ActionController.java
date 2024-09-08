@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +22,13 @@ import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.CreateActionUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.DeleteActionUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.GetActionByIdUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.ListAllActionsByFilterUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.ListAllActionsUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.UpdateActionUseCase;
 import com.abracecdcAPI.abracecdcAPI.exceptions.ActionNotFoundException;
 
 @RestController
 @RequestMapping("/action")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ActionController {
 
   @Autowired
@@ -40,8 +43,11 @@ public class ActionController {
   @Autowired
   private GetActionByIdUseCase getActionByIdUseCase;
 
-  @Autowired 
+  @Autowired
   private ListAllActionsByFilterUseCase listAllActionsByFilterUseCase;
+
+  @Autowired
+  private ListAllActionsUseCase listAllActionsUseCase;
 
   @PostMapping("/create")
   public ResponseEntity<Object> createAction(@RequestBody CreateActionDTO createActionDTO) {
@@ -60,6 +66,16 @@ public class ActionController {
       return ResponseEntity.ok().body(action);
     } catch (ActionNotFoundException e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+  }
+
+  @GetMapping("/")
+  public ResponseEntity<Object> listAllActions() {
+    try {
+      var actions = this.listAllActionsUseCase.execute();
+      return ResponseEntity.ok().body(actions);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
