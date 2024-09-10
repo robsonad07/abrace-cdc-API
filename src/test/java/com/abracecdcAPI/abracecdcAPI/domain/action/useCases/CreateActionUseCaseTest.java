@@ -23,13 +23,10 @@ import com.abracecdcAPI.abracecdcAPI.domain.action.dto.CreateActionDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.action.entity.ActionEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.action.exceptions.ActionAlredyExistsException;
 import com.abracecdcAPI.abracecdcAPI.domain.action.repository.ActionRepository;
-import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
-import com.abracecdcAPI.abracecdcAPI.domain.address.repository.AddressRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.category.repository.CategoryRepository;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.repository.OrganizerRepository;
-import com.abracecdcAPI.abracecdcAPI.exceptions.AddressNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.CategoryNotFoundException;
 import com.abracecdcAPI.abracecdcAPI.exceptions.OrganizerNotFoundException;
 
@@ -48,20 +45,15 @@ public class CreateActionUseCaseTest {
   @Mock
   private OrganizerRepository organizerRepository;
 
-  @Mock
-  private AddressRepository addressRepository;
-
   @Test
   @DisplayName("Should be able to create an action")
   public void should_be_able_to_create_an_actionA() {
     var actionId = UUID.randomUUID();
     var categoryId = UUID.randomUUID();
     var organizerId = UUID.randomUUID();
-    var addressId = UUID.randomUUID();
 
     CreateActionDTO createActionDTO = CreateActionDTO.builder()
         .actionId(actionId)
-        .addressId(addressId)
         .categoryId(categoryId)
         .organizerId(organizerId)
         .title("title-test")
@@ -83,15 +75,6 @@ public class CreateActionUseCaseTest {
         .email("organizer@test.com")
         .build();
 
-    var address = Address.builder()
-        .id(addressId)
-        .city("teste")
-        .cep("62960-000")
-        .road("teste")
-        .number(123)
-        .complement("teste")
-        .build();
-
     var actionToCreate = ActionEntity.builder()
         .id(actionId)
         .title("title-test")
@@ -100,7 +83,6 @@ public class CreateActionUseCaseTest {
         .dateTime(LocalDateTime.parse("2002-02-08T16:10:01"))
         .categoryEntity(category)
         .organizerEntity(organizer)
-        .addressEntity(address)
         .build();
 
     when(actionRepository.save(any(ActionEntity.class))).thenReturn(actionToCreate);
@@ -108,7 +90,6 @@ public class CreateActionUseCaseTest {
         .thenReturn(Optional.empty());
     when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
     when(organizerRepository.findById(organizerId)).thenReturn(Optional.of(organizer));
-    when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
 
     var actionCreated = createActionUseCase.execute(createActionDTO);
 
@@ -124,11 +105,9 @@ public class CreateActionUseCaseTest {
     assertEquals(actionCreated.getDateTime(), captureAction.getDateTime());
     assertEquals(actionCreated.getCategoryEntity(), captureAction.getCategoryEntity());
     assertEquals(actionCreated.getOrganizerEntity(), captureAction.getOrganizerEntity());
-    assertEquals(actionCreated.getAddressEntity(), captureAction.getAddressEntity());
 
     verify(actionRepository, times(1)).findByTitleAndSubtitle(createActionDTO.getTitle(),
         createActionDTO.getSubtitle());
-    verify(addressRepository, times(1)).findById(addressId);
     verify(categoryRepository, times(1)).findById(categoryId);
     verify(organizerRepository, times(1)).findById(organizerId);
     verify(actionRepository, times(1)).save(any(ActionEntity.class));
@@ -141,11 +120,9 @@ public class CreateActionUseCaseTest {
     var actionId = UUID.randomUUID();
     var categoryId = UUID.randomUUID();
     var organizerId = UUID.randomUUID();
-    var addressId = UUID.randomUUID();
 
     CreateActionDTO createActionDTO = CreateActionDTO.builder()
         .actionId(actionId)
-        .addressId(addressId)
         .categoryId(categoryId)
         .organizerId(organizerId)
         .title("title-test")
@@ -167,15 +144,6 @@ public class CreateActionUseCaseTest {
         .email("organizer@test.com")
         .build();
 
-    var address = Address.builder()
-        .id(addressId)
-        .city("teste")
-        .cep("62960-000")
-        .road("teste")
-        .number(123)
-        .complement("teste")
-        .build();
-
     var existingAction = ActionEntity.builder()
         .id(actionId)
         .title("title-test")
@@ -184,7 +152,6 @@ public class CreateActionUseCaseTest {
         .dateTime(LocalDateTime.parse("2002-02-08T16:10:01"))
         .categoryEntity(category)
         .organizerEntity(organizer)
-        .addressEntity(address)
         .build();
 
     when(actionRepository.findByTitleAndSubtitle(createActionDTO.getTitle(), createActionDTO.getSubtitle()))
@@ -200,41 +167,12 @@ public class CreateActionUseCaseTest {
   }
 
   @Test
-  @DisplayName("Should be able to create an action with a non existent address")
-  public void should_not_be_able_to_create_an_action_with_a_non_existent_address() {
-    var categoryId = UUID.randomUUID();
-    var organizerId = UUID.randomUUID();
-    var addressId = UUID.randomUUID();
-
-    CreateActionDTO createActionDTO = CreateActionDTO.builder()
-        .addressId(addressId)
-        .categoryId(categoryId)
-        .organizerId(organizerId)
-        .title("title-test")
-        .subtitle("test-subtitle")
-        .description("test-description")
-        .dateTime(LocalDateTime.parse("2002-02-08T16:10:01"))
-        .build();
-
-    when(addressRepository.findById(addressId)).thenReturn(Optional.empty());
-
-    assertThrows(AddressNotFoundException.class, () -> {
-      this.createActionUseCase.execute(createActionDTO);
-    });
-
-    verify(addressRepository, times(1)).findById(addressId);
-
-  }
-
-  @Test
   @DisplayName("Should be able to create an action with a non existent organizer")
   public void should_not_be_able_to_create_an_action_with_a_non_existent_organizer() {
     var categoryId = UUID.randomUUID();
     var organizerId = UUID.randomUUID();
-    var addressId = UUID.randomUUID();
 
     CreateActionDTO createActionDTO = CreateActionDTO.builder()
-        .addressId(addressId)
         .categoryId(categoryId)
         .organizerId(organizerId)
         .title("title-test")
@@ -243,23 +181,12 @@ public class CreateActionUseCaseTest {
         .dateTime(LocalDateTime.parse("2002-02-08T16:10:01"))
         .build();
 
-    var address = Address.builder()
-        .id(addressId)
-        .city("teste")
-        .cep("62960-000")
-        .road("teste")
-        .number(123)
-        .complement("teste")
-        .build();
-
-    when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
     when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
 
     assertThrows(CategoryNotFoundException.class, () -> {
       this.createActionUseCase.execute(createActionDTO);
     });
 
-    verify(addressRepository, times(1)).findById(addressId);
     verify(categoryRepository, times(1)).findById(categoryId);
   }
 
@@ -268,10 +195,8 @@ public class CreateActionUseCaseTest {
   public void should_not_be_able_to_create_an_action_with_a_non_existent_category() {
     var categoryId = UUID.randomUUID();
     var organizerId = UUID.randomUUID();
-    var addressId = UUID.randomUUID();
 
     CreateActionDTO createActionDTO = CreateActionDTO.builder()
-        .addressId(addressId)
         .categoryId(categoryId)
         .organizerId(organizerId)
         .title("title-test")
@@ -280,22 +205,12 @@ public class CreateActionUseCaseTest {
         .dateTime(LocalDateTime.parse("2002-02-08T16:10:01"))
         .build();
 
-    var address = Address.builder()
-        .id(addressId)
-        .city("teste")
-        .cep("62960-000")
-        .road("teste")
-        .number(123)
-        .complement("teste")
-        .build();
-
     var category = CategoryEntity.builder()
         .id(categoryId)
         .name("test-name")
         .description("test-description")
         .build();
 
-    when(addressRepository.findById(addressId)).thenReturn(Optional.of(address));
     when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
     when(organizerRepository.findById(organizerId)).thenReturn(Optional.empty());
 
@@ -303,7 +218,6 @@ public class CreateActionUseCaseTest {
       this.createActionUseCase.execute(createActionDTO);
     });
 
-    verify(addressRepository, times(1)).findById(addressId);
     verify(categoryRepository, times(1)).findById(categoryId);
     verify(organizerRepository, times(1)).findById(organizerId);
 
