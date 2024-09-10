@@ -4,6 +4,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,12 +19,14 @@ import com.abracecdcAPI.abracecdcAPI.domain.category.dto.CategoryDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.CreateCategoryUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.DeleteCategoryUseCases;
+import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.ListAllCategories;
 import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.ListAllCategoryByFilterUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.category.useCases.UpdateCategoryUseCase;
 import com.abracecdcAPI.abracecdcAPI.exceptions.CategoryNotFoundException;
 
 @RestController
 @RequestMapping("/categories")
+@CrossOrigin(origins = "http://localhost:5173")
 public class CategoryController {
 
     @Autowired
@@ -34,6 +37,9 @@ public class CategoryController {
 
     @Autowired
     private ListAllCategoryByFilterUseCase listAllCategoryByFilterUseCase;
+
+    @Autowired
+    private ListAllCategories listAllCategories;
     
     @Autowired
     private DeleteCategoryUseCases deleteCategoryUseCases;
@@ -62,6 +68,16 @@ public class CategoryController {
     public ResponseEntity<Object> getCategoryByName(@RequestParam String filter) {
         try {
             var result = listAllCategoryByFilterUseCase.execute(filter);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/")
+    public ResponseEntity<Object> listAllCategories() {
+        try {
+            var result = listAllCategories.execute();
             return ResponseEntity.ok().body(result);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
