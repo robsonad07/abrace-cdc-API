@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class EventController {
     @Autowired
     CreateEventUseCase createEventUseCase;

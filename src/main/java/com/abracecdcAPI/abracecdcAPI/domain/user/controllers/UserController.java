@@ -2,6 +2,7 @@ package com.abracecdcAPI.abracecdcAPI.domain.user.controllers;
 
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.DeleteUserUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.FindUserUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.GetUserByEmailUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.user.entity.User;
 import com.abracecdcAPI.abracecdcAPI.domain.user.dto.UserRecordDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.user.useCases.ListAllUsersUseCase;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class UserController {
     @Autowired
     private ListAllUsersUseCase listAllUsersUseCase;
@@ -25,6 +27,8 @@ public class UserController {
     private UpdateAdminUseCase updateAdminUseCase;
     @Autowired
     private DeleteUserUseCase deleteUserUseCase;
+    @Autowired
+    private GetUserByEmailUseCase getUserByEmailUseCase;
 
     @GetMapping("/users")
     public ResponseEntity<Object> getAllUsers(){
@@ -40,6 +44,16 @@ public class UserController {
     public ResponseEntity<Object> getUser(@PathVariable(value = "id") UUID id){
         try {
             User user = findUserUseCase.execute(id);
+            return ResponseEntity.status(HttpStatus.OK).body(user);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    @GetMapping("/user/email/{email}")
+    public ResponseEntity<Object> getUserByEmail(@PathVariable(value = "email") String email){
+        try {
+            User user = getUserByEmailUseCase.execute(email);
             return ResponseEntity.status(HttpStatus.OK).body(user);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

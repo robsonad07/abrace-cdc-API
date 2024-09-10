@@ -7,5 +7,5 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 
 @Builder
-public record AddressDTO(@NotBlank UUID id ,@NotBlank String city, @NotBlank String cep, @NotBlank String road, @NotNull int number, @NotBlank String complement) {
+public record AddressDTO( UUID id ,@NotBlank String city, @NotBlank String cep, @NotBlank String road, @NotNull int number, @NotBlank String complement) {
 }

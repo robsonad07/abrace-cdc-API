@@ -21,6 +21,7 @@ import com.abracecdcAPI.abracecdcAPI.domain.action.dto.UpdateActionDTO;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.CreateActionUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.DeleteActionUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.GetActionByIdUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.GetAmountCollectedUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.ListAllActionsByFilterUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.ListAllActionsUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.action.useCases.UpdateActionUseCase;
@@ -49,6 +50,9 @@ public class ActionController {
   @Autowired
   private ListAllActionsUseCase listAllActionsUseCase;
 
+  @Autowired
+  private GetAmountCollectedUseCase getAmountCollectedUseCase;
+
   @PostMapping("/create")
   public ResponseEntity<Object> createAction(@RequestBody CreateActionDTO createActionDTO) {
     try {
@@ -76,6 +80,16 @@ public class ActionController {
     try {
       var actions = this.listAllActionsUseCase.execute();
       return ResponseEntity.ok().body(actions);
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+  }
+
+  @GetMapping("/amount/{actionId}")
+  public ResponseEntity<Object> getAmountCollectedAction(@PathVariable UUID actionId) {
+    try {
+      var value = this.getAmountCollectedUseCase.execute(actionId);
+      return ResponseEntity.ok().body(value);
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
