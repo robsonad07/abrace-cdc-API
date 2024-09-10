@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,12 +20,14 @@ import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.CreateOrganizerUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.DeleteOrganizerUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.GetOrganizerByIdUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.ListAllOrganizer;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.ListAllOrganizerByFilterUseCase;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.useCases.UpdateOrganizerUseCase;
 import com.abracecdcAPI.abracecdcAPI.exceptions.OrganizerNotFoundException;
 
 @RestController
 @RequestMapping("/organizer")
+@CrossOrigin(origins = "http://localhost:5173")
 public class OrganizerController {
 
   @Autowired
@@ -38,6 +41,9 @@ public class OrganizerController {
 
   @Autowired
   private ListAllOrganizerByFilterUseCase listAllOrganizerByFilterUseCase;
+
+  @Autowired
+  private ListAllOrganizer listAllOrganizer;
 
   @Autowired
   private GetOrganizerByIdUseCase getOrganizerByIdUseCase;
@@ -66,6 +72,16 @@ public class OrganizerController {
   public ResponseEntity<Object> getOrganizerByName(@RequestParam String filter) {
     try {
       var result = listAllOrganizerByFilterUseCase.execute(filter);
+      return ResponseEntity.ok().body(result);
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
+
+  @GetMapping("/")
+  public ResponseEntity<Object> listAllOrnigazers() {
+    try {
+      var result = listAllOrganizer.execute();
       return ResponseEntity.ok().body(result);
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());

@@ -21,12 +21,10 @@ public class UpdateActionDTO {
   private UUID id;
   private UUID categoryId;
   private UUID organizerId;
-  private UUID addressId;
 
   private String title;
   private String subtitle;
   private String description;
-  private String duration;
   
   private List<RegisterActionEntity> registers;
   private List<DonationActionEntity> donationsAction;

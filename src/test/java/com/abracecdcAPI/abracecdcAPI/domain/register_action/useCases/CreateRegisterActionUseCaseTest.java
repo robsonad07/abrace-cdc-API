@@ -18,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.abracecdcAPI.abracecdcAPI.domain.action.entity.ActionEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.action.repository.ActionRepository;
-import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.register_action.dto.CreateRegisterActionDTO;
@@ -45,7 +44,6 @@ public class CreateRegisterActionUseCaseTest {
         UUID id = UUID.randomUUID();
         UUID idCategory = UUID.randomUUID();
         UUID idOrganizer = UUID.randomUUID();
-        UUID idAddress = UUID.randomUUID();
 
         var categoryEntity = CategoryEntity.builder()
             .id(idCategory)
@@ -60,15 +58,6 @@ public class CreateRegisterActionUseCaseTest {
             .email("organizer@test.com")
             .build();
 
-        var address = Address.builder()
-            .id(idAddress)
-            .city("test")
-            .cep("62960-000")
-            .road("test")
-            .number(123)
-            .complement("test")
-            .build();
-
         var actionEntity = ActionEntity.builder()
             .id(id)
             .title("test")
@@ -78,7 +67,6 @@ public class CreateRegisterActionUseCaseTest {
             .dateTime(LocalDateTime.parse("2002-02-08T16:10:01"))
             .categoryEntity(categoryEntity)
             .organizerEntity(organizerEntity)
-            .addressEntity(address)
             .build();
 
         var createRegisterActionDTO = CreateRegisterActionDTO.builder()

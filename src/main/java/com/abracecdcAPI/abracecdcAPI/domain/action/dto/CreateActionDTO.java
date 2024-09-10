@@ -17,12 +17,11 @@ public class CreateActionDTO {
   private UUID actionId;
   private UUID categoryId;
   private UUID organizerId;
-  private UUID addressId;
 
   private String title;
   private String subtitle;
-  private String description;
-  private String duration;
+  private String description; 
+  private float value;
 
   private LocalDateTime dateTime;
 }
