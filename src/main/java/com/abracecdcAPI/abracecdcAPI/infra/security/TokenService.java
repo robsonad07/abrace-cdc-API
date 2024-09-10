@@ -23,6 +23,7 @@ public class TokenService {
             String token = JWT.create()
                     .withIssuer("abrece-cdc-API")
                     .withSubject(user.getEmail())
+                    .withClaim("userId", user.getId().toString())
                     .withExpiresAt(this.generateExpirationDate())
                     .sign(algorithm);
 
