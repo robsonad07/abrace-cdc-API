@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.abracecdcAPI.abracecdcAPI.domain.address.entity.Address;
 import com.abracecdcAPI.abracecdcAPI.domain.category.entity.CategoryEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.donation_action.entity.DonationActionEntity;
 import com.abracecdcAPI.abracecdcAPI.domain.organizer.entity.OrganizerEntity;
@@ -43,6 +42,8 @@ public class ActionEntity {
   private String description;
   private String duration;
 
+  private float value;
+
   @Column(name = "date_time", columnDefinition = "TIMESTAMP")
   private LocalDateTime dateTime;
 
@@ -53,10 +54,6 @@ public class ActionEntity {
   @ManyToOne()
   @JoinColumn(name = "organizer_id")
   private OrganizerEntity organizerEntity;
-
-  @ManyToOne()
-  @JoinColumn(name = "address_id")
-  private Address addressEntity;
 
   @OneToMany(mappedBy = "actionEntity", cascade = CascadeType.REMOVE)
   @JsonManagedReference
