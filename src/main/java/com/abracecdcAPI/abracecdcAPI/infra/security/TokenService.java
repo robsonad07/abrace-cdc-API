@@ -24,6 +24,7 @@ public class TokenService {
                     .withIssuer("abrece-cdc-API")
                     .withSubject(user.getEmail())
                     .withClaim("userId", user.getId().toString())
+                    .withClaim("userRole", user.getRole().getRole())
                     .withExpiresAt(this.generateExpirationDate())
                     .sign(algorithm);
 
