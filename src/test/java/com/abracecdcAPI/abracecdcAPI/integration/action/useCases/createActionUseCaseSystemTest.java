@@ -49,8 +49,35 @@ public class createActionUseCaseSystemTest {
         // Save the new category
         browser.findElement(By.xpath("//*[@id=\'new-category-form\']/button")).click();
 
-        // Select the new category
-        browser.findElement(By.xpath("//*[@id=\'root\']/div/div/form/div[4]/div[1]/button[1]")).click();
+        // Select the category
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div/div/form/div[4]/div[1]/button[1]")).click();
 
+        // create new organizer
+        browser.findElement(By.xpath("//*[@id=\'root\']/div/div/form/div[4]/div[2]/button[2]")).click();
+
+        // Set the organizer name
+        browser.findElement(By.xpath("//*[@id=\'new-organizer-form\']/input[1]"))
+            .sendKeys("Test Organizer");
+
+        // Set the organizer email
+        browser.findElement(By.xpath("//*[@id=\'new-organizer-form\']/input[2]"))
+            .sendKeys("email@test.com");
+
+        // Set the organizer phone
+        browser.findElement(By.xpath("//*[@id=\'new-organizer-form\']/input[3]"))
+            .sendKeys("123456789");
+
+        // Save the new organizer
+        browser.findElement(By.xpath("//*[@id=\'new-organizer-form\']/button")).click();
+
+        // Select the organizer
+        browser.findElement(By.xpath("//*[@id=\"root\"]/div/div/form/div[4]/div[2]/button[1]")).click();
+
+        // Set the action description
+        browser.findElement(By.xpath("//*[@id=\'root\']/div/div/form/div[5]/textarea"))
+            .sendKeys("Test Description");
+
+        // Save the action
+        browser.findElement(By.xpath("//*[@id=\'root\']/div/div/form/button")).click();
     }
 }
