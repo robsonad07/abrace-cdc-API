@@ -36,7 +36,7 @@ public class registerUserUseCaseSystemTest {
     @DisplayName("register with valid credentials")
     public void testregisterWithValidCredentials() { 
         // Open localhost abrace-cdc
-        browser.get("http://localhost:5173/");
+        browser.get("http://127.0.0.1:5173/");
 
         // Click on the login button
         browser.findElement(By.xpath("//*[@id='root']/div/header/nav/a[5]")).click();

@@ -37,13 +37,13 @@ public class deleteActionUseCaseSystemTest {
     @DisplayName("Delete an action")
     public void testDeleteAnAction() { 
         // Open localhost abrace-cdc
-        browser.get("http://localhost:5173/admin/actions");
+        browser.get("http://127.0.0.1:5173/admin/actions");
 
         // Click on the Delete button
         browser.findElement(By.xpath("//*[@id=\"root\"]/div/div/div[2]/div/div/div[3]/button[2]")).click();
 
         // Click on the Delete Action button
-        browser.findElement(By.xpath("//*[@id=\"radix-:rh:\"]/div/button[2]")).click();
+        browser.findElement(By.xpath("//*[@id=\'radix-:rr:\']/div/button[2]")).click();
     }
     
 }

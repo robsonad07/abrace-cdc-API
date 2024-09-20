@@ -29,7 +29,7 @@ import com.abracecdcAPI.abracecdcAPI.exceptions.ActionNotFoundException;
 
 @RestController
 @RequestMapping("/action")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://127.0.0.1:5173")
 public class ActionController {
 
   @Autowired

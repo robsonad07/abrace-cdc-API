@@ -41,7 +41,7 @@ public class createDonationActionUseCaseSystemTest {
     @DisplayName("create donation action with valid credentials")
     public void testCreateDonationActionWithValidCredentials() { 
         // Open localhost abrace-cdc
-        browser.get("http://localhost:5173/");
+        browser.get("http://127.0.0.1:5173/");
 
         // Click on the create button
         browser.findElement(By.xpath("//*[@id='root']/div/header/a[2]")).click();

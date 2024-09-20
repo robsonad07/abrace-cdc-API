@@ -40,7 +40,7 @@ public class createEventUseCaseSystemTest {
         @DisplayName("Create a new valid event")
         public void testCreateANewValidEvent() { 
             // Open localhost abrace-cdc
-            browser.get("http://localhost:5173/admin/");
+            browser.get("http://127.0.0.1:5173/admin/");
     
             // Clink on the Create button
             browser.findElement(By.xpath("//*[@id='root']/div/header/a[2]")).click();
@@ -59,6 +59,13 @@ public class createEventUseCaseSystemTest {
             WebElement categoryDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='root']/div/div/form/select")));
             Select categorySelect = new Select(categoryDropdown);
             categorySelect.selectByVisibleText("Test Category");
+
+
+            // Select the organizer in the dropdown
+            WebElement organizerDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\'root\']/div/div/form/div[3]/select")));
+            Select organizerSelect = new Select(organizerDropdown);
+            organizerSelect.selectByVisibleText("Test Organizer");
+
             
             // browser.findElement(By.xpath("//*[@id=\"root\"]/div/div/form/button[1]")).click();
             // browser.findElement(By.xpath("//*[@id='root']/div/div/form/select/optiona[1]")).click();

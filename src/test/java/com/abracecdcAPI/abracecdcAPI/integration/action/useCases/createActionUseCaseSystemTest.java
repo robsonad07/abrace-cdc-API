@@ -42,7 +42,7 @@ public class createActionUseCaseSystemTest {
     @DisplayName("Create a new valid action")
     public void testCreateANewValidAction() { 
         // Open localhost abrace-cdc
-        browser.get("http://localhost:5173/admin/");
+        browser.get("http://127.0.0.1:5173/admin/");
 
         // Clink on the Create button
         browser.findElement(By.xpath("//*[@id='root']/div/header/a[2]")).click();
