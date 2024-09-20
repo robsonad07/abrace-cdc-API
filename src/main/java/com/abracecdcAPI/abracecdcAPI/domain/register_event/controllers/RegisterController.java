@@ -1,18 +1,32 @@
 package com.abracecdcAPI.abracecdcAPI.domain.register_event.controllers;
 
-import com.abracecdcAPI.abracecdcAPI.domain.register_event.dto.RegisterDTO;
-import com.abracecdcAPI.abracecdcAPI.domain.register_event.entity.Register;
-import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.*;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.dto.RegisterDTO;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.entity.Register;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.CreateRegisterUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.DeleteRegisterUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.FindRegisterUseCase;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.GetAllRegisterUserCase;
+import com.abracecdcAPI.abracecdcAPI.domain.register_event.useCases.UpdateRegisterUseCase;
+
+import jakarta.validation.Valid;
+
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class RegisterController {
     @Autowired
     CreateRegisterUseCase createRegisterUseCase;
